@@ -1,6 +1,7 @@
 repositories {
-  mavenLocal()
-  // note: use url "${System.env.HOME}/.m2/repository" if mavenLocal() does not work for you due to bug in Gradle 1.9
+  maven {
+    url "http://davearata.github.com/mavenrepo/repository"
+  }
 }
 
 dependencies {
