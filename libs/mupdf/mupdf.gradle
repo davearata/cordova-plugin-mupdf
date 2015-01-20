@@ -1,0 +1,8 @@
+repositories {
+  mavenLocal()
+  // note: use url "${System.env.HOME}/.m2/repository" if mavenLocal() does not work for you due to bug in Gradle 1.9
+}
+
+dependencies {
+  compile 'com.artifex.mupdf:libmupdf-gradle:0.0.1'
+}
