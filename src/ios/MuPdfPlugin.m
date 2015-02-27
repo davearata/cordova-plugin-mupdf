@@ -28,16 +28,17 @@ enum
   CDVPluginResult* pluginResult = nil;
   NSString* nspath = [command.arguments objectAtIndex:0];
   NSString* documentTitle = [command.arguments objectAtIndex:1];
+  NSDictionary *options = [command argumentAtIndex:2];
 
   if (nspath != nil && [nspath length] > 0) {
-    [self openDocument:nspath title:documentTitle command:command];
+    [self openDocument:nspath title:documentTitle options:options command:command];
   } else {
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
   }
 }
 
-- (void) openDocument: (NSString*)nspath title:(NSString*)documentTitle command:(CDVInvokedUrlCommand*)command
+- (void) openDocument: (NSString*)nspath title:(NSString*)documentTitle options:(NSDictionary*)options command:(CDVInvokedUrlCommand*)command
 {
   _filePath = malloc(strlen([nspath UTF8String])+1);
   if (_filePath == NULL) {
@@ -57,7 +58,7 @@ enum
     return;
   }
 
-  MuDocumentController *document = [[MuDocumentController alloc] initWithFilename: documentTitle path:_filePath document: doc];
+  MuDocumentController *document = [[MuDocumentController alloc] initWithFilename: documentTitle path:_filePath document: doc options:options];
   if (document) {
     UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:document];
     [self.viewController presentViewController:navigationController animated:YES completion:^{

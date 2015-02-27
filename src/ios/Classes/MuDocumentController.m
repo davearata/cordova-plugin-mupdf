@@ -67,9 +67,8 @@ static char *tmp_path(char *path)
 	}
 }
 
-static void saveDoc(char *current_path, fz_document *doc)
+static int saveDocFile(char *current_path, char *output_path, fz_document *doc)
 {
-	char *tmp;
 	fz_write_options opts;
 	opts.do_incremental = 1;
 	opts.do_ascii = 0;
@@ -77,16 +76,13 @@ static void saveDoc(char *current_path, fz_document *doc)
 	opts.do_garbage = 0;
 	opts.do_linear = 0;
 
-	tmp = tmp_path(current_path);
-	if (tmp)
-	{
 		int written = 0;
 
 		fz_var(written);
 		fz_try(ctx)
 		{
 			FILE *fin = fopen(current_path, "rb");
-			FILE *fout = fopen(tmp, "wb");
+			FILE *fout = fopen(output_path, "wb");
 			char buf[256];
 			size_t n;
 			int err = 1;
@@ -105,7 +101,7 @@ static void saveDoc(char *current_path, fz_document *doc)
 
 			if (!err)
 			{
-				fz_write_document(ctx, doc, tmp, &opts);
+				fz_write_document(ctx, doc, output_path, &opts);
 				written = 1;
 			}
 		}
@@ -114,12 +110,51 @@ static void saveDoc(char *current_path, fz_document *doc)
 			written = 0;
 		}
 
-		if (written)
-		{
-			rename(tmp, current_path);
+		return written;
+}
+
+static void saveDoc(char *current_path, fz_document *doc, BOOL isAnnotated)
+{
+	char *output_path = NULL;
+	if(isAnnotated) {
+		output_path = tmp_path(current_path);
+	}
+	else
+	{
+		NSString *libPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+		NSString *libNoSyncPath = [libPath stringByAppendingPathComponent:@"NoCloud/Annotated"];
+
+		NSString *filePath = [NSString stringWithUTF8String:current_path];
+		NSArray* pathComponents = [filePath pathComponents];
+		NSArray* parentFolderComponents = [pathComponents subarrayWithRange:NSMakeRange([pathComponents count]-2,1)];
+		NSString* parentFolder = [NSString pathWithComponents:parentFolderComponents];
+
+		NSString * finalPath = [libNoSyncPath stringByAppendingPathComponent:parentFolder];
+		NSError* error = nil;
+		if (![[NSFileManager defaultManager] fileExistsAtPath:finalPath]) {
+			[[NSFileManager defaultManager] createDirectoryAtPath:finalPath withIntermediateDirectories:YES attributes:nil error:&error];
 		}
 
-		free(tmp);
+		if(!error) {
+				NSString* fileName = [[filePath lastPathComponent] stringByDeletingPathExtension];
+				time_t unixTime = (time_t) [[NSDate date] timeIntervalSince1970];
+				NSString* finalFileName = [NSString stringWithFormat:@"%@_%ld.pdf",fileName, unixTime];
+
+				NSString* finalPathWithName = [finalPath stringByAppendingPathComponent:finalFileName];
+
+				output_path = malloc(strlen([finalPathWithName UTF8String])+1);
+				strcpy(output_path, [finalPathWithName UTF8String]);
+		}
+	}
+
+	if (output_path)
+	{
+		int written = saveDocFile(current_path, output_path, doc);
+		if (written && isAnnotated)
+		{
+			rename(output_path, current_path);
+		}
+		free(output_path);
 	}
 }
 
@@ -155,9 +190,11 @@ static void saveDoc(char *current_path, fz_document *doc)
 	int scroll_animating; // stop view updates during scrolling animations
 	float scale; // scale applied to views (only used in reflow mode)
 	BOOL _isRotating;
+	BOOL annotationsEnabled;
+	BOOL isAnnotatedPdf;
 }
 
-- (id) initWithFilename: (NSString*)filename path:(char *)cstr document: (MuDocRef *)aDoc
+- (id) initWithFilename: (NSString*)filename path:(char *)cstr document: (MuDocRef *)aDoc options: (NSDictionary*) options
 {
 	self = [super init];
 	if (!self)
@@ -171,6 +208,9 @@ static void saveDoc(char *current_path, fz_document *doc)
 	docRef = [aDoc retain];
 	doc = docRef->doc;
 	filePath = strdup(cstr);
+
+	annotationsEnabled = [[options valueForKey:@"annotationsEnabled"] boolValue];
+	isAnnotatedPdf = [[options valueForKey:@"isAnnotatedPdf"] boolValue];
 
 	dispatch_sync(queue, ^{});
 
@@ -293,7 +333,9 @@ static void saveDoc(char *current_path, fz_document *doc)
 	nextButton = [self newResourceBasedButton:@"ic_arrow_right" withAction:@selector(onSearchNext:)];
 	// reflowButton = [self newResourceBasedButton:@"ic_reflow" withAction:@selector(onToggleReflow:)];
 	moreButton = [self newResourceBasedButton:@"ic_more" withAction:@selector(onMore:)];
-	annotButton = [self newResourceBasedButton:@"ic_annotation" withAction:@selector(onAnnot:)];
+	if(annotationsEnabled) {
+		annotButton = [self newResourceBasedButton:@"ic_annotation" withAction:@selector(onAnnot:)];
+	}
 	// shareButton = [self newResourceBasedButton:@"ic_share" withAction:@selector(onShare:)];
 	printButton = [self newResourceBasedButton:@"ic_print" withAction:@selector(onPrint:)];
 	highlightButton = [self newResourceBasedButton:@"ic_highlight" withAction:@selector(onHighlight:)];
@@ -763,8 +805,9 @@ static void saveDoc(char *current_path, fz_document *doc)
 {
 	if ([CloseAlertMessage isEqualToString:alertView.message])
 	{
-		if (buttonIndex == 1)
-			saveDoc(filePath, doc);
+		if (buttonIndex == 1) {
+			saveDoc(filePath, doc, isAnnotatedPdf);
+		}
 
 		[alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
 		[[[self navigationController] presentingViewController] dismissViewControllerAnimated:YES completion:nil];
@@ -775,7 +818,7 @@ static void saveDoc(char *current_path, fz_document *doc)
 		[alertView dismissWithClickedButtonIndex:buttonIndex animated:NO];
 		if (buttonIndex == 1)
 		{
-			saveDoc(filePath, doc);
+			saveDoc(filePath, doc, isAnnotatedPdf);
 			[self shareDocument];
 		}
 	}
