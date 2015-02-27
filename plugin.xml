@@ -16,6 +16,159 @@
   </engines>
 
   <!-- android -->
+  <platform name="ios">
+    <config-file target="config.xml" parent="/*">
+      <feature name="MuPdfPlugin">
+          <param name="ios-package" value="MuPdfPlugin" />
+      </feature>
+    </config-file>
+
+    <js-module src="www/mupdf.js">
+      <clobbers target="window.pdf" />
+    </js-module>
+
+    <framework src="libz.dylib" />
+
+    <source-file src="src/ios/libmupdf.a" framework="true" />
+    <source-file src="src/ios/libmujs.a" framework="true" />
+    <source-file src="src/ios/libfreetype.a" framework="true" />
+    <source-file src="src/ios/libjbig2dec.a" framework="true" />
+    <source-file src="src/ios/libjpeg.a" framework="true" />
+    <source-file src="src/ios/libopenjpeg.a" framework="true" />
+
+    <source-file src="src/ios/common.m" compiler-flags="-fno-objc-arc"/>
+    <header-file src="src/ios/common.h" compiler-flags="-fno-objc-arc"/>
+
+    <source-file src="src/ios/MuPdfPlugin.m"/>
+    <header-file src="src/ios/MuPdfPlugin.h"/>
+
+    <header-file src="src/ios/include/mupdf/fitz.h"/>
+    <header-file src="src/ios/include/mupdf/html.h"/>
+    <header-file src="src/ios/include/mupdf/memento.h"/>
+    <header-file src="src/ios/include/mupdf/pdf-tools.h"/>
+    <header-file src="src/ios/include/mupdf/pdf.h"/>
+    <header-file src="src/ios/include/mupdf/xps.h"/>
+
+    <header-file src="src/ios/include/mupdf/fitz/annotation.h" />
+    <header-file src="src/ios/include/mupdf/fitz/bitmap.h" />
+    <header-file src="src/ios/include/mupdf/fitz/buffer.h" />
+    <header-file src="src/ios/include/mupdf/fitz/colorspace.h" />
+    <header-file src="src/ios/include/mupdf/fitz/compressed-buffer.h" />
+    <header-file src="src/ios/include/mupdf/fitz/context.h" />
+    <header-file src="src/ios/include/mupdf/fitz/crypt.h" />
+    <header-file src="src/ios/include/mupdf/fitz/device.h" />
+    <header-file src="src/ios/include/mupdf/fitz/display-list.h" />
+    <header-file src="src/ios/include/mupdf/fitz/document.h" />
+    <header-file src="src/ios/include/mupdf/fitz/filter.h" />
+    <header-file src="src/ios/include/mupdf/fitz/font.h" />
+    <header-file src="src/ios/include/mupdf/fitz/function.h" />
+    <header-file src="src/ios/include/mupdf/fitz/getopt.h" />
+    <header-file src="src/ios/include/mupdf/fitz/glyph-cache.h" />
+    <header-file src="src/ios/include/mupdf/fitz/glyph.h" />
+    <header-file src="src/ios/include/mupdf/fitz/hash.h" />
+    <header-file src="src/ios/include/mupdf/fitz/image.h" />
+    <header-file src="src/ios/include/mupdf/fitz/link.h" />
+    <header-file src="src/ios/include/mupdf/fitz/math.h" />
+    <header-file src="src/ios/include/mupdf/fitz/meta.h" />
+    <header-file src="src/ios/include/mupdf/fitz/outline.h" />
+    <header-file src="src/ios/include/mupdf/fitz/output-pcl.h" />
+    <header-file src="src/ios/include/mupdf/fitz/output-png.h" />
+    <header-file src="src/ios/include/mupdf/fitz/output-pnm.h" />
+    <header-file src="src/ios/include/mupdf/fitz/output-pwg.h" />
+    <header-file src="src/ios/include/mupdf/fitz/output-svg.h" />
+    <header-file src="src/ios/include/mupdf/fitz/output-tga.h" />
+    <header-file src="src/ios/include/mupdf/fitz/output.h" />
+    <header-file src="src/ios/include/mupdf/fitz/path.h" />
+    <header-file src="src/ios/include/mupdf/fitz/pixmap.h" />
+    <header-file src="src/ios/include/mupdf/fitz/shade.h" />
+    <header-file src="src/ios/include/mupdf/fitz/store.h" />
+    <header-file src="src/ios/include/mupdf/fitz/stream.h" />
+    <header-file src="src/ios/include/mupdf/fitz/string.h" />
+    <header-file src="src/ios/include/mupdf/fitz/structured-text.h" />
+    <header-file src="src/ios/include/mupdf/fitz/system.h" />
+    <header-file src="src/ios/include/mupdf/fitz/text.h" />
+    <header-file src="src/ios/include/mupdf/fitz/transition.h" />
+    <header-file src="src/ios/include/mupdf/fitz/tree.h" />
+    <header-file src="src/ios/include/mupdf/fitz/unzip.h" />
+    <header-file src="src/ios/include/mupdf/fitz/version.h" />
+    <header-file src="src/ios/include/mupdf/fitz/write-document.h" />
+    <header-file src="src/ios/include/mupdf/fitz/xml.h" />
+
+    <header-file src="src/ios/include/mupdf/pdf/annot.h" />
+    <header-file src="src/ios/include/mupdf/pdf/appearance.h" />
+    <header-file src="src/ios/include/mupdf/pdf/cmap.h" />
+    <header-file src="src/ios/include/mupdf/pdf/pdf-crypt.h" />
+    <header-file src="src/ios/include/mupdf/pdf/pdf-document.h" />
+    <header-file src="src/ios/include/mupdf/pdf/event.h" />
+    <header-file src="src/ios/include/mupdf/pdf/field.h" />
+    <header-file src="src/ios/include/mupdf/pdf/pdf-font.h" />
+    <header-file src="src/ios/include/mupdf/pdf/javascript.h" />
+    <header-file src="src/ios/include/mupdf/pdf/object.h" />
+    <header-file src="src/ios/include/mupdf/pdf/output-pdf.h" />
+    <header-file src="src/ios/include/mupdf/pdf/page.h" />
+    <header-file src="src/ios/include/mupdf/pdf/parse.h" />
+    <header-file src="src/ios/include/mupdf/pdf/resource.h" />
+    <header-file src="src/ios/include/mupdf/pdf/widget.h" />
+    <header-file src="src/ios/include/mupdf/pdf/xref.h" />
+
+    <header-file src="src/ios/Classes/MuAnnotSelectView.h" compiler-flags="-fno-objc-arc"/>
+    <source-file src="src/ios/Classes/MuAnnotSelectView.m" compiler-flags="-fno-objc-arc"/>
+    <header-file src="src/ios/Classes/MuAnnotation.h" compiler-flags="-fno-objc-arc"/>
+    <source-file src="src/ios/Classes/MuAnnotation.m" compiler-flags="-fno-objc-arc"/>
+    <header-file src="src/ios/Classes/MuChoiceFieldController.h" compiler-flags="-fno-objc-arc"/>
+    <source-file src="src/ios/Classes/MuChoiceFieldController.m" compiler-flags="-fno-objc-arc"/>
+    <resource-file src="src/ios/Classes/MuChoiceFieldController.xib" />
+    <header-file src="src/ios/Classes/MuDialogCreator.h" compiler-flags="-fno-objc-arc"/>
+    <header-file src="src/ios/Classes/MuDocRef.h" compiler-flags="-fno-objc-arc"/>
+    <source-file src="src/ios/Classes/MuDocRef.m" compiler-flags="-fno-objc-arc"/>
+    <header-file src="src/ios/Classes/MuDocumentController.h" compiler-flags="-fno-objc-arc"/>
+    <source-file src="src/ios/Classes/MuDocumentController.m" compiler-flags="-fno-objc-arc"/>
+    <header-file src="src/ios/Classes/MuHitView.h" compiler-flags="-fno-objc-arc"/>
+    <source-file src="src/ios/Classes/MuHitView.m" compiler-flags="-fno-objc-arc"/>
+    <header-file src="src/ios/Classes/MuInkView.h" compiler-flags="-fno-objc-arc"/>
+    <source-file src="src/ios/Classes/MuInkView.m" compiler-flags="-fno-objc-arc"/>
+    <header-file src="src/ios/Classes/MuOutlineController.h" compiler-flags="-fno-objc-arc"/>
+    <source-file src="src/ios/Classes/MuOutlineController.m" compiler-flags="-fno-objc-arc"/>
+    <header-file src="src/ios/Classes/MuPageView.h" compiler-flags="-fno-objc-arc"/>
+    <header-file src="src/ios/Classes/MuPageViewNormal.h" compiler-flags="-fno-objc-arc"/>
+    <source-file src="src/ios/Classes/MuPageViewNormal.m" compiler-flags="-fno-objc-arc"/>
+    <header-file src="src/ios/Classes/MuPageViewReflow.h" compiler-flags="-fno-objc-arc"/>
+    <source-file src="src/ios/Classes/MuPageViewReflow.m" compiler-flags="-fno-objc-arc"/>
+    <header-file src="src/ios/Classes/MuPrintPageRenderer.h" compiler-flags="-fno-objc-arc"/>
+    <source-file src="src/ios/Classes/MuPrintPageRenderer.m" compiler-flags="-fno-objc-arc"/>
+    <header-file src="src/ios/Classes/MuTapResult.h" compiler-flags="-fno-objc-arc"/>
+    <source-file src="src/ios/Classes/MuTapResult.m" compiler-flags="-fno-objc-arc"/>
+    <header-file src="src/ios/Classes/MuTextFieldController.h" compiler-flags="-fno-objc-arc"/>
+    <source-file src="src/ios/Classes/MuTextFieldController.m" compiler-flags="-fno-objc-arc"/>
+    <resource-file src="src/ios/Classes/MuTextFieldController.xib" />
+    <header-file src="src/ios/Classes/MuTextSelectView.h" compiler-flags="-fno-objc-arc"/>
+    <source-file src="src/ios/Classes/MuTextSelectView.m" compiler-flags="-fno-objc-arc"/>
+    <header-file src="src/ios/Classes/MuUpdater.h" compiler-flags="-fno-objc-arc"/>
+    <header-file src="src/ios/Classes/MuWord.h" compiler-flags="-fno-objc-arc"/>
+    <source-file src="src/ios/Classes/MuWord.m" compiler-flags="-fno-objc-arc"/>
+
+
+    <resource-file src="src/ios/resources/ic_annotation.png" />
+    <resource-file src="src/ios/resources/ic_arrow_left.png" />
+    <resource-file src="src/ios/resources/ic_arrow_right.png" />
+    <resource-file src="src/ios/resources/ic_cancel.png" />
+    <resource-file src="src/ios/resources/ic_check.png" />
+    <resource-file src="src/ios/resources/ic_highlight.png" />
+    <resource-file src="src/ios/resources/ic_link.png" />
+    <resource-file src="src/ios/resources/ic_list.png" />
+    <resource-file src="src/ios/resources/ic_magnifying_glass.png" />
+    <resource-file src="src/ios/resources/ic_more.png" />
+    <resource-file src="src/ios/resources/ic_pen.png" />
+    <resource-file src="src/ios/resources/ic_print.png" />
+    <resource-file src="src/ios/resources/ic_reflow.png" />
+    <resource-file src="src/ios/resources/ic_share.png" />
+    <resource-file src="src/ios/resources/ic_strike.png" />
+    <resource-file src="src/ios/resources/ic_trash.png" />
+    <resource-file src="src/ios/resources/ic_underline.png" />
+
+  </platform>
+
+  <!-- android -->
   <platform name="android">
     <js-module src="www/mupdf.js">
       <clobbers target="window.pdf" />
