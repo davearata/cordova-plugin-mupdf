@@ -149,22 +149,31 @@
 
 
     <resource-file src="src/ios/resources/ic_annotation.png" />
+    <resource-file src="src/ios/resources/ic_annotation@2x.png" />
     <resource-file src="src/ios/resources/ic_arrow_left.png" />
+    <resource-file src="src/ios/resources/ic_arrow_left@2x.png" />
     <resource-file src="src/ios/resources/ic_arrow_right.png" />
+    <resource-file src="src/ios/resources/ic_arrow_right@2x.png" />
     <resource-file src="src/ios/resources/ic_cancel.png" />
+    <resource-file src="src/ios/resources/ic_cancel@2x.png" />
     <resource-file src="src/ios/resources/ic_check.png" />
+    <resource-file src="src/ios/resources/ic_check@2x.png" />
     <resource-file src="src/ios/resources/ic_highlight.png" />
-    <resource-file src="src/ios/resources/ic_link.png" />
-    <resource-file src="src/ios/resources/ic_list.png" />
+    <resource-file src="src/ios/resources/ic_highlight@2x.png" />
     <resource-file src="src/ios/resources/ic_magnifying_glass.png" />
+    <resource-file src="src/ios/resources/ic_magnifying_glass@2x.png" />
     <resource-file src="src/ios/resources/ic_more.png" />
+    <resource-file src="src/ios/resources/ic_more@2x.png" />
     <resource-file src="src/ios/resources/ic_pen.png" />
+    <resource-file src="src/ios/resources/ic_pen@2x.png" />
     <resource-file src="src/ios/resources/ic_print.png" />
-    <resource-file src="src/ios/resources/ic_reflow.png" />
-    <resource-file src="src/ios/resources/ic_share.png" />
+    <resource-file src="src/ios/resources/ic_print@2x.png" />
     <resource-file src="src/ios/resources/ic_strike.png" />
+    <resource-file src="src/ios/resources/ic_strike@2x.png" />
     <resource-file src="src/ios/resources/ic_trash.png" />
+    <resource-file src="src/ios/resources/ic_trash@2x.png" />
     <resource-file src="src/ios/resources/ic_underline.png" />
+    <resource-file src="src/ios/resources/ic_underline@2x.png" />
 
   </platform>
 
