@@ -232,6 +232,28 @@ static void addMarkupAnnot(fz_document *doc, fz_page *page, int type, NSArray *r
 	}
 }
 
+static void addFreeTextAnnot(fz_document *doc, fz_page *page, char *text, fz_point *pos)
+{
+	pdf_document *idoc;
+	float color[3] = {1.0, 0.0, 0.0};
+
+	idoc = pdf_specifics(ctx, doc);
+	if (!idoc)
+		return;
+
+	fz_try(ctx)
+	{
+		pdf_annot *annot;
+
+		annot = pdf_create_annot(ctx, idoc, (pdf_page *)page, FZ_ANNOT_FREETEXT);
+		pdf_set_free_text_details(ctx, idoc, annot, pos, text, "Helvetica", 12.f, color);
+	}
+	fz_catch(ctx)
+	{
+		printf("Annotation creation failed\n");
+	}
+}
+
 static void addInkAnnot(fz_document *doc, fz_page *page, NSArray *curves)
 {
 	pdf_document *idoc;
@@ -598,6 +620,7 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 	MuHitView *linkView;
 	MuTextSelectView *textSelectView;
 	MuInkView *inkView;
+	MuFreeTextView *freeTextView;
 	MuAnnotSelectView *annotSelectView;
 	NSArray *widgetRects;
 	NSArray *annotations;
@@ -793,6 +816,14 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 	if (imageView)
 		[inkView setFrame:[imageView frame]];
 	[self addSubview:inkView];
+}
+
+- (void) freeTextModeOn
+{
+	freeTextView = [[MuFreeTextView alloc] initWithPageSize:pageSize];
+	if (imageView)
+		[freeTextView setFrame:[imageView frame]];
+	[self addSubview:freeTextView];
 }
 
 - (void) textSelectModeOff

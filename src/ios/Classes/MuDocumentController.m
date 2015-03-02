@@ -113,8 +113,13 @@ static int saveDocFile(char *current_path, char *output_path, fz_document *doc)
 		return written;
 }
 
-static void saveDoc(char *current_path, fz_document *doc, BOOL isAnnotated)
+static NSDictionary* saveDoc(char *current_path, fz_document *doc, BOOL isAnnotated)
 {
+	NSString* newAnnotatedFileName;
+	NSString* newAnnotatedFilePath;
+	NSString* newAnnotatedFileParentFolder;
+	NSString* newAnnotatedFileTimestamp;
+
 	char *output_path = NULL;
 	if(isAnnotated) {
 		output_path = tmp_path(current_path);
@@ -128,6 +133,7 @@ static void saveDoc(char *current_path, fz_document *doc, BOOL isAnnotated)
 		NSArray* pathComponents = [filePath pathComponents];
 		NSArray* parentFolderComponents = [pathComponents subarrayWithRange:NSMakeRange([pathComponents count]-2,1)];
 		NSString* parentFolder = [NSString pathWithComponents:parentFolderComponents];
+		newAnnotatedFileParentFolder = parentFolder;
 
 		NSString * finalPath = [libNoSyncPath stringByAppendingPathComponent:parentFolder];
 		NSError* error = nil;
@@ -137,10 +143,13 @@ static void saveDoc(char *current_path, fz_document *doc, BOOL isAnnotated)
 
 		if(!error) {
 				NSString* fileName = [[filePath lastPathComponent] stringByDeletingPathExtension];
+				newAnnotatedFileName = fileName;
 				time_t unixTime = (time_t) [[NSDate date] timeIntervalSince1970];
+				newAnnotatedFileTimestamp = [NSString stringWithFormat:@"%ld", unixTime];
 				NSString* finalFileName = [NSString stringWithFormat:@"%@_%ld.pdf",fileName, unixTime];
 
 				NSString* finalPathWithName = [finalPath stringByAppendingPathComponent:finalFileName];
+				newAnnotatedFilePath = finalPathWithName;
 
 				output_path = malloc(strlen([finalPathWithName UTF8String])+1);
 				strcpy(output_path, [finalPathWithName UTF8String]);
@@ -155,7 +164,15 @@ static void saveDoc(char *current_path, fz_document *doc, BOOL isAnnotated)
 			rename(output_path, current_path);
 		}
 		free(output_path);
+		NSDictionary *newAnnotationResults = [[NSDictionary alloc]
+    initWithObjectsAndKeys:newAnnotatedFileName, @"newAnnotatedFileName",
+														newAnnotatedFilePath, @"newAnnotatedFilePath",
+														newAnnotatedFileParentFolder, @"newAnnotatedFileParentFolder",
+														newAnnotatedFileTimestamp, @"newAnnotatedFileTimestamp",
+                           nil];
+		return newAnnotationResults;
 	}
+	return nil;
 }
 
 @implementation MuDocumentController
@@ -175,6 +192,7 @@ static void saveDoc(char *current_path, fz_document *doc, BOOL isAnnotated)
 	UIBarButtonItem *shareButton, *printButton, *annotButton;
 	UIBarButtonItem *highlightButton, *underlineButton, *strikeoutButton;
 	UIBarButtonItem *inkButton;
+	UIBarButtonItem *freeTextButton;
 	UIBarButtonItem *tickButton;
 	UIBarButtonItem *deleteButton;
 	UIBarButtonItem *reflowButton;
@@ -342,6 +360,7 @@ static void saveDoc(char *current_path, fz_document *doc, BOOL isAnnotated)
 	underlineButton = [self newResourceBasedButton:@"ic_underline" withAction:@selector(onUnderline:)];
 	strikeoutButton = [self newResourceBasedButton:@"ic_strike" withAction:@selector(onStrikeout:)];
 	inkButton = [self newResourceBasedButton:@"ic_pen" withAction:@selector(onInk:)];
+	// freeTextButton = [self newResourceBasedButton:@"ic_free_text" withAction:@selector(onFreeText:)];
 	tickButton = [self newResourceBasedButton:@"ic_check" withAction:@selector(onTick:)];
 	deleteButton = [self newResourceBasedButton:@"ic_trash" withAction:@selector(onDelete:)];
 	searchBar = [[UISearchBar alloc] initWithFrame: CGRectMake(0,0,50,32)];
@@ -383,6 +402,7 @@ static void saveDoc(char *current_path, fz_document *doc, BOOL isAnnotated)
 	[underlineButton release]; underlineButton = nil;
 	[strikeoutButton release]; strikeoutButton = nil;
 	[inkButton release]; inkButton = nil;
+	[freeTextButton release]; freeTextButton = nil;
 	[tickButton release]; tickButton = nil;
 	[deleteButton release]; deleteButton = nil;
 	[canvas release]; canvas = nil;
@@ -559,7 +579,7 @@ static void saveDoc(char *current_path, fz_document *doc, BOOL isAnnotated)
 
 - (void) showAnnotationMenu
 {
-	[[self navigationItem] setRightBarButtonItems:[NSArray arrayWithObjects:inkButton, strikeoutButton, underlineButton, highlightButton, nil]];
+	[[self navigationItem] setRightBarButtonItems:[NSArray arrayWithObjects:inkButton, strikeoutButton, underlineButton, highlightButton, freeTextButton, nil]];
 	[[self navigationItem] setLeftBarButtonItem:cancelButton];
 
 	for (UIView<MuPageView> *view in [canvas subviews])
@@ -637,6 +657,16 @@ static void saveDoc(char *current_path, fz_document *doc, BOOL isAnnotated)
 	}
 }
 
+- (void) freeTextModeOn
+{
+	[[self navigationItem] setRightBarButtonItems:[NSArray arrayWithObject:tickButton]];
+	for (UIView<MuPageView> *view in [canvas subviews])
+	{
+		if ([view number] == current)
+			[view freeTextModeOn];
+	}
+}
+
 - (void) textSelectModeOn
 {
 	[[self navigationItem] setRightBarButtonItems:[NSArray arrayWithObject:tickButton]];
@@ -701,6 +731,12 @@ static void saveDoc(char *current_path, fz_document *doc, BOOL isAnnotated)
 {
 	barmode = BARMODE_INK;
 	[self inkModeOn];
+}
+
+- (void) onFreeText: (id)sender
+{
+	barmode = BARMODE_FREE_TEXT;
+	[self freeTextModeOn];
 }
 
 - (void) onShowSearch: (id)sender
@@ -784,6 +820,14 @@ static void saveDoc(char *current_path, fz_document *doc, BOOL isAnnotated)
 	}
 }
 
+- (void) dismiss:(NSDictionary*)saveResults
+{
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"DocumentControllerDismissed"
+																				object:saveResults
+																				userInfo:nil];
+	[[[self navigationController] presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (void) onBack: (id)sender
 {
 	pdf_document *idoc = pdf_specifics(ctx, doc);
@@ -797,7 +841,7 @@ static void saveDoc(char *current_path, fz_document *doc, BOOL isAnnotated)
 	}
 	else
 	{
-		[[[self navigationController] presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+		[self dismiss:nil];
 	}
 }
 
@@ -805,12 +849,12 @@ static void saveDoc(char *current_path, fz_document *doc, BOOL isAnnotated)
 {
 	if ([CloseAlertMessage isEqualToString:alertView.message])
 	{
+		NSDictionary* saveResults = nil;
 		if (buttonIndex == 1) {
-			saveDoc(filePath, doc, isAnnotatedPdf);
+			saveResults = saveDoc(filePath, doc, isAnnotatedPdf);
 		}
 
-		[alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
-		[[[self navigationController] presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+		[self dismiss:saveResults];
 	}
 
 	if ([ShareAlertMessage isEqualToString:alertView.message])

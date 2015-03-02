@@ -121,6 +121,7 @@ NSString *textAsHtml(fz_document *doc, int pageNum)
 -(void) textSelectModeOff {}
 -(void) inkModeOn {}
 -(void) inkModeOff {}
+-(void) freeTextModeOn {}
 -(void) saveSelectionAsMarkup:(int)type {}
 -(void) saveInk {}
 -(void) deselectAnnotation {}

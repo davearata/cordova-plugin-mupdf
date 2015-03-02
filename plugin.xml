@@ -127,6 +127,8 @@
     <source-file src="src/ios/Classes/MuHitView.m" compiler-flags="-fno-objc-arc"/>
     <header-file src="src/ios/Classes/MuInkView.h" compiler-flags="-fno-objc-arc"/>
     <source-file src="src/ios/Classes/MuInkView.m" compiler-flags="-fno-objc-arc"/>
+    <header-file src="src/ios/Classes/MuFreeTextView.h" compiler-flags="-fno-objc-arc"/>
+    <source-file src="src/ios/Classes/MuFreeTextView.m" compiler-flags="-fno-objc-arc"/>
     <header-file src="src/ios/Classes/MuOutlineController.h" compiler-flags="-fno-objc-arc"/>
     <source-file src="src/ios/Classes/MuOutlineController.m" compiler-flags="-fno-objc-arc"/>
     <header-file src="src/ios/Classes/MuPageView.h" compiler-flags="-fno-objc-arc"/>
@@ -158,6 +160,8 @@
     <resource-file src="src/ios/resources/ic_cancel@2x.png" />
     <resource-file src="src/ios/resources/ic_check.png" />
     <resource-file src="src/ios/resources/ic_check@2x.png" />
+    <resource-file src="src/ios/resources/ic_free_text.png" />
+    <resource-file src="src/ios/resources/ic_free_text@2x.png" />
     <resource-file src="src/ios/resources/ic_highlight.png" />
     <resource-file src="src/ios/resources/ic_highlight@2x.png" />
     <resource-file src="src/ios/resources/ic_magnifying_glass.png" />

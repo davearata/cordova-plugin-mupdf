@@ -7,6 +7,7 @@
 {
   MuDocRef *doc;
   char *_filePath;
+  CDVInvokedUrlCommand* cdvCommand;
 }
 
 enum
@@ -30,15 +31,17 @@ enum
   NSString* documentTitle = [command.arguments objectAtIndex:1];
   NSDictionary *options = [command argumentAtIndex:2];
 
+  cdvCommand = command;
+
   if (nspath != nil && [nspath length] > 0) {
-    [self openDocument:nspath title:documentTitle options:options command:command];
+    [self openDocument:nspath title:documentTitle options:options];
   } else {
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
   }
 }
 
-- (void) openDocument: (NSString*)nspath title:(NSString*)documentTitle options:(NSDictionary*)options command:(CDVInvokedUrlCommand*)command
+- (void) openDocument: (NSString*)nspath title:(NSString*)documentTitle options:(NSDictionary*)options
 {
   _filePath = malloc(strlen([nspath UTF8String])+1);
   if (_filePath == NULL) {
@@ -61,11 +64,19 @@ enum
   MuDocumentController *document = [[MuDocumentController alloc] initWithFilename: documentTitle path:_filePath document: doc options:options];
   if (document) {
     UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:document];
-    [self.viewController presentViewController:navigationController animated:YES completion:^{
-      [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
-    }];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                          selector:@selector(didDismissDocumentController:)
+                                          name:@"DocumentControllerDismissed"
+                                          object:nil];
+    [self.viewController presentViewController:navigationController animated:YES completion:nil];
   }
   free(_filePath);
+}
+
+-(void)didDismissDocumentController:(NSNotification *)notification {
+  NSDictionary* saveResults = [notification object];
+  CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:saveResults];
+  [self.commandDelegate sendPluginResult:pluginResult callbackId:cdvCommand.callbackId];
 }
 
 @end

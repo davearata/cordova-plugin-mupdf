@@ -12,6 +12,7 @@
 #import "MuDialogCreator.h"
 #import "MuTextSelectView.h"
 #import "MuInkView.h"
+#import "MuFreeTextView.h"
 #import "MuAnnotSelectView.h"
 #import "MuUpdater.h"
 
