@@ -6,4 +6,5 @@ repositories {
 
 dependencies {
   compile 'com.artifex.mupdf:libmupdf-gradle:0.0.1'
+  compile 'com.artifex.mupdfdemo:MuPdfandroid:0.3'
 }
