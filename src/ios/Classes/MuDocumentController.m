@@ -164,13 +164,15 @@ static NSDictionary* saveDoc(char *current_path, fz_document *doc, BOOL isAnnota
 			rename(output_path, current_path);
 		}
 		free(output_path);
-		NSDictionary *newAnnotationResults = [[NSDictionary alloc]
-    initWithObjectsAndKeys:newAnnotatedFileName, @"newAnnotatedFileName",
-														newAnnotatedFilePath, @"newAnnotatedFilePath",
-														newAnnotatedFileParentFolder, @"newAnnotatedFileParentFolder",
-														newAnnotatedFileTimestamp, @"newAnnotatedFileTimestamp",
-                           nil];
-		return newAnnotationResults;
+		if(!isAnnotated) {
+			NSDictionary *newAnnotationResults = [[NSDictionary alloc]
+			initWithObjectsAndKeys:newAnnotatedFileName, @"newAnnotatedFileName",
+															newAnnotatedFilePath, @"newAnnotatedFilePath",
+															newAnnotatedFileParentFolder, @"newAnnotatedFileParentFolder",
+															newAnnotatedFileTimestamp, @"newAnnotatedFileTimestamp",
+														 nil];
+			return newAnnotationResults;
+		}
 	}
 	return nil;
 }
@@ -192,7 +194,6 @@ static NSDictionary* saveDoc(char *current_path, fz_document *doc, BOOL isAnnota
 	UIBarButtonItem *shareButton, *printButton, *annotButton;
 	UIBarButtonItem *highlightButton, *underlineButton, *strikeoutButton;
 	UIBarButtonItem *inkButton;
-	UIBarButtonItem *freeTextButton;
 	UIBarButtonItem *tickButton;
 	UIBarButtonItem *deleteButton;
 	UIBarButtonItem *reflowButton;
@@ -284,7 +285,7 @@ static NSDictionary* saveDoc(char *current_path, fz_document *doc, BOOL isAnnota
 {
 	[[NSUserDefaults standardUserDefaults] setObject: key forKey: @"OpenDocumentKey"];
 
-	current = [[NSUserDefaults standardUserDefaults] integerForKey: key];
+	current = (int)[[NSUserDefaults standardUserDefaults] integerForKey: key];
 	if (current < 0 || current >= fz_count_pages(ctx, doc))
 		current = 0;
 
@@ -360,7 +361,6 @@ static NSDictionary* saveDoc(char *current_path, fz_document *doc, BOOL isAnnota
 	underlineButton = [self newResourceBasedButton:@"ic_underline" withAction:@selector(onUnderline:)];
 	strikeoutButton = [self newResourceBasedButton:@"ic_strike" withAction:@selector(onStrikeout:)];
 	inkButton = [self newResourceBasedButton:@"ic_pen" withAction:@selector(onInk:)];
-	// freeTextButton = [self newResourceBasedButton:@"ic_free_text" withAction:@selector(onFreeText:)];
 	tickButton = [self newResourceBasedButton:@"ic_check" withAction:@selector(onTick:)];
 	deleteButton = [self newResourceBasedButton:@"ic_trash" withAction:@selector(onDelete:)];
 	searchBar = [[UISearchBar alloc] initWithFrame: CGRectMake(0,0,50,32)];
@@ -402,7 +402,6 @@ static NSDictionary* saveDoc(char *current_path, fz_document *doc, BOOL isAnnota
 	[underlineButton release]; underlineButton = nil;
 	[strikeoutButton release]; strikeoutButton = nil;
 	[inkButton release]; inkButton = nil;
-	[freeTextButton release]; freeTextButton = nil;
 	[tickButton release]; tickButton = nil;
 	[deleteButton release]; deleteButton = nil;
 	[canvas release]; canvas = nil;
@@ -579,7 +578,7 @@ static NSDictionary* saveDoc(char *current_path, fz_document *doc, BOOL isAnnota
 
 - (void) showAnnotationMenu
 {
-	[[self navigationItem] setRightBarButtonItems:[NSArray arrayWithObjects:inkButton, strikeoutButton, underlineButton, highlightButton, freeTextButton, nil]];
+	[[self navigationItem] setRightBarButtonItems:[NSArray arrayWithObjects:inkButton, strikeoutButton, underlineButton, highlightButton, nil]];
 	[[self navigationItem] setLeftBarButtonItem:cancelButton];
 
 	for (UIView<MuPageView> *view in [canvas subviews])
@@ -657,16 +656,6 @@ static NSDictionary* saveDoc(char *current_path, fz_document *doc, BOOL isAnnota
 	}
 }
 
-- (void) freeTextModeOn
-{
-	[[self navigationItem] setRightBarButtonItems:[NSArray arrayWithObject:tickButton]];
-	for (UIView<MuPageView> *view in [canvas subviews])
-	{
-		if ([view number] == current)
-			[view freeTextModeOn];
-	}
-}
-
 - (void) textSelectModeOn
 {
 	[[self navigationItem] setRightBarButtonItems:[NSArray arrayWithObject:tickButton]];
@@ -731,12 +720,6 @@ static NSDictionary* saveDoc(char *current_path, fz_document *doc, BOOL isAnnota
 {
 	barmode = BARMODE_INK;
 	[self inkModeOn];
-}
-
-- (void) onFreeText: (id)sender
-{
-	barmode = BARMODE_FREE_TEXT;
-	[self freeTextModeOn];
 }
 
 - (void) onShowSearch: (id)sender
@@ -854,6 +837,7 @@ static NSDictionary* saveDoc(char *current_path, fz_document *doc, BOOL isAnnota
 			saveResults = saveDoc(filePath, doc, isAnnotatedPdf);
 		}
 
+		[alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
 		[self dismiss:saveResults];
 	}
 

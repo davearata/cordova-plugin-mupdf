@@ -42,7 +42,7 @@ NSString *textAsHtml(fz_document *doc, int pageNum)
 		fz_printf(ctx, out, "div.metaline{display:table;width:100%%}\n");
 		fz_printf(ctx, out, "div.line{display:table-row;}\n");
 		fz_printf(ctx, out, "div.cell{display:table-cell;padding-left:0.25em;padding-right:0.25em}\n");
-		//fz_printf(out, "p{margin:0;padding:0;}\n");
+		//fz_printf(ctx, out, "p{margin:0;padding:0;}\n");
 		fz_printf(ctx, out, "</style>\n");
 		fz_printf(ctx, out, "<body style=\"margin:0\"><div style=\"padding:10px\" id=\"content\">");
 		fz_print_text_page_html(ctx, out, text);
@@ -50,7 +50,7 @@ NSString *textAsHtml(fz_document *doc, int pageNum)
 		fz_printf(ctx, out, "<style>\n");
 		fz_print_text_sheet(ctx, out, sheet);
 		fz_printf(ctx, out, "</style>\n</html>\n");
-		fz_drop_output(ctx, out);
+
 		out = NULL;
 
 		str = [[[NSString alloc] initWithBytes:buf->data length:buf->len encoding:NSUTF8StringEncoding] autorelease];
@@ -121,7 +121,6 @@ NSString *textAsHtml(fz_document *doc, int pageNum)
 -(void) textSelectModeOff {}
 -(void) inkModeOn {}
 -(void) inkModeOff {}
--(void) freeTextModeOn {}
 -(void) saveSelectionAsMarkup:(int)type {}
 -(void) saveInk {}
 -(void) deselectAnnotation {}

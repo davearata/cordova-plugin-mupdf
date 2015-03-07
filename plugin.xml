@@ -35,6 +35,7 @@
     <source-file src="src/ios/libjbig2dec.a" framework="true" />
     <source-file src="src/ios/libjpeg.a" framework="true" />
     <source-file src="src/ios/libopenjpeg.a" framework="true" />
+    <source-file src="src/ios/libz.a" framework="true" />
 
     <source-file src="src/ios/common.m" compiler-flags="-fno-objc-arc"/>
     <header-file src="src/ios/common.h" compiler-flags="-fno-objc-arc"/>
@@ -127,8 +128,6 @@
     <source-file src="src/ios/Classes/MuHitView.m" compiler-flags="-fno-objc-arc"/>
     <header-file src="src/ios/Classes/MuInkView.h" compiler-flags="-fno-objc-arc"/>
     <source-file src="src/ios/Classes/MuInkView.m" compiler-flags="-fno-objc-arc"/>
-    <header-file src="src/ios/Classes/MuFreeTextView.h" compiler-flags="-fno-objc-arc"/>
-    <source-file src="src/ios/Classes/MuFreeTextView.m" compiler-flags="-fno-objc-arc"/>
     <header-file src="src/ios/Classes/MuOutlineController.h" compiler-flags="-fno-objc-arc"/>
     <source-file src="src/ios/Classes/MuOutlineController.m" compiler-flags="-fno-objc-arc"/>
     <header-file src="src/ios/Classes/MuPageView.h" compiler-flags="-fno-objc-arc"/>

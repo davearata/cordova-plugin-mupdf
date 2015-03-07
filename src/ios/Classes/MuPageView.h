@@ -17,7 +17,6 @@
 -(void) deleteSelectedAnnotation;
 -(void) inkModeOn;
 -(void) inkModeOff;
--(void) freeTextModeOn;
 -(void) saveSelectionAsMarkup:(int)type;
 -(void) saveInk;
 -(void) update;

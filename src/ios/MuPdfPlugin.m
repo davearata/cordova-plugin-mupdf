@@ -61,7 +61,7 @@ enum
     return;
   }
 
-  MuDocumentController *document = [[MuDocumentController alloc] initWithFilename: documentTitle path:_filePath document: doc options:options];
+  MuDocumentController *document = [[MuDocumentController alloc] initWithFilename: documentTitle path:_filePath document:doc options:options];
   if (document) {
     UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:document];
     [[NSNotificationCenter defaultCenter] addObserver:self

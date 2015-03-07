@@ -200,7 +200,7 @@ static void addMarkupAnnot(fz_document *doc, fz_page *page, int type, NSArray *r
 		int i;
 		pdf_annot *annot;
 
-		quadpts = fz_malloc_array(ctx, rects.count * 4, sizeof(fz_point));
+		quadpts = fz_malloc_array(ctx, (int)rects.count * 4, sizeof(fz_point));
 		for (i = 0; i < rects.count; i++)
 		{
 			CGRect rect = [[rects objectAtIndex:i] CGRectValue];
@@ -219,34 +219,12 @@ static void addMarkupAnnot(fz_document *doc, fz_page *page, int type, NSArray *r
 		}
 
 		annot = pdf_create_annot(ctx, idoc, (pdf_page *)page, type);
-		pdf_set_markup_annot_quadpoints(ctx, idoc, annot, quadpts, rects.count*4);
+		pdf_set_markup_annot_quadpoints(ctx, idoc, annot, quadpts, (int)rects.count*4);
 		pdf_set_markup_appearance(ctx, idoc, annot, color, alpha, line_thickness, line_height);
 	}
 	fz_always(ctx)
 	{
 		fz_free(ctx, quadpts);
-	}
-	fz_catch(ctx)
-	{
-		printf("Annotation creation failed\n");
-	}
-}
-
-static void addFreeTextAnnot(fz_document *doc, fz_page *page, char *text, fz_point *pos)
-{
-	pdf_document *idoc;
-	float color[3] = {1.0, 0.0, 0.0};
-
-	idoc = pdf_specifics(ctx, doc);
-	if (!idoc)
-		return;
-
-	fz_try(ctx)
-	{
-		pdf_annot *annot;
-
-		annot = pdf_create_annot(ctx, idoc, (pdf_page *)page, FZ_ANNOT_FREETEXT);
-		pdf_set_free_text_details(ctx, idoc, annot, pos, text, "Helvetica", 12.f, color);
 	}
 	fz_catch(ctx)
 	{
@@ -273,7 +251,7 @@ static void addInkAnnot(fz_document *doc, fz_page *page, NSArray *curves)
 		int i, j, k, n;
 		pdf_annot *annot;
 
-		n = curves.count;
+		n = (int)curves.count;
 
 		counts = fz_malloc_array(ctx, n, sizeof(int));
 		total = 0;
@@ -281,8 +259,8 @@ static void addInkAnnot(fz_document *doc, fz_page *page, NSArray *curves)
 		for (i = 0; i < n; i++)
 		{
 			NSArray *curve = [curves objectAtIndex:i];
-			counts[i] = curve.count;
-			total += curve.count;
+			counts[i] = (int)curve.count;
+			total += (int)curve.count;
 		}
 
 		pts = fz_malloc_array(ctx, total, sizeof(fz_point));
@@ -620,7 +598,6 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 	MuHitView *linkView;
 	MuTextSelectView *textSelectView;
 	MuInkView *inkView;
-	MuFreeTextView *freeTextView;
 	MuAnnotSelectView *annotSelectView;
 	NSArray *widgetRects;
 	NSArray *annotations;
@@ -710,7 +687,7 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 		__block fz_display_list *block_page_list = page_list;
 		__block fz_display_list *block_annot_list = annot_list;
 		__block fz_page *block_page = page;
-		__block fz_document *block_doc = docRef->doc;
+//		__block fz_document *block_doc = docRef->doc;
 		__block CGDataProviderRef block_tileData = tileData;
 		__block CGDataProviderRef block_imageData = imageData;
 		dispatch_async(queue, ^{
@@ -816,14 +793,6 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 	if (imageView)
 		[inkView setFrame:[imageView frame]];
 	[self addSubview:inkView];
-}
-
-- (void) freeTextModeOn
-{
-	freeTextView = [[MuFreeTextView alloc] initWithPageSize:pageSize];
-	if (imageView)
-		[freeTextView setFrame:[imageView frame]];
-	[self addSubview:freeTextView];
 }
 
 - (void) textSelectModeOff

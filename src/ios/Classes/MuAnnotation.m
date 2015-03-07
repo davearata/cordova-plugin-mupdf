@@ -8,7 +8,7 @@
 
 @synthesize type, rect;
 
--(id) initFromAnnot:(fz_annot *)annot forPage:(fz_page *)page
+-(id) initFromAnnot:(fz_annot *)annot forPage:(fz_page *)page;
 {
 	self = [super init];
 	if (self)
@@ -24,7 +24,7 @@
 	return self;
 }
 
-+(MuAnnotation *) annotFromAnnot:(fz_annot *)annot forPage:(fz_page *)page
++(MuAnnotation *) annotFromAnnot:(fz_annot *)annot forPage:(fz_page *)page;
 {
 	return [[[MuAnnotation alloc] initFromAnnot:annot forPage:page] autorelease];
 }
