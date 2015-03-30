@@ -103,7 +103,9 @@
     <header-file src="src/ios/include/mupdf/pdf/event.h" />
     <header-file src="src/ios/include/mupdf/pdf/field.h" />
     <header-file src="src/ios/include/mupdf/pdf/pdf-font.h" />
+    <header-file src="src/ios/include/mupdf/pdf/interpret.h" />
     <header-file src="src/ios/include/mupdf/pdf/javascript.h" />
+    <header-file src="src/ios/include/mupdf/pdf/name-table.h" />
     <header-file src="src/ios/include/mupdf/pdf/object.h" />
     <header-file src="src/ios/include/mupdf/pdf/output-pdf.h" />
     <header-file src="src/ios/include/mupdf/pdf/page.h" />

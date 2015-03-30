@@ -13,6 +13,7 @@
 #include "resource.h"
 #include "cmap.h"
 #include "pdf-font.h"
+#include "interpret.h"
 
 #include "annot.h"
 #include "field.h"
