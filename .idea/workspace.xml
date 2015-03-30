@@ -2,79 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e4b96881-d372-48c2-80b4-e45bb2feec12" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/pdf/interpret.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/pdf/name-table.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/libfreetype.a" afterPath="$PROJECT_DIR$/src/ios/libfreetype.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/libjbig2dec.a" afterPath="$PROJECT_DIR$/src/ios/libjbig2dec.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/libjpeg.a" afterPath="$PROJECT_DIR$/src/ios/libjpeg.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/libmujs.a" afterPath="$PROJECT_DIR$/src/ios/libmujs.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/libmupdf.a" afterPath="$PROJECT_DIR$/src/ios/libmupdf.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/libopenjpeg.a" afterPath="$PROJECT_DIR$/src/ios/libopenjpeg.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/libz.a" afterPath="$PROJECT_DIR$/src/ios/libz.a" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/Classes/MuAnnotation.h" afterPath="$PROJECT_DIR$/src/ios/Classes/MuAnnotation.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/Classes/MuDocRef.h" afterPath="$PROJECT_DIR$/src/ios/Classes/MuDocRef.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/Classes/MuDocRef.m" afterPath="$PROJECT_DIR$/src/ios/Classes/MuDocRef.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/Classes/MuDocumentController.h" afterPath="$PROJECT_DIR$/src/ios/Classes/MuDocumentController.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/Classes/MuDocumentController.m" afterPath="$PROJECT_DIR$/src/ios/Classes/MuDocumentController.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/Classes/MuHitView.h" afterPath="$PROJECT_DIR$/src/ios/Classes/MuHitView.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/Classes/MuPageViewNormal.h" afterPath="$PROJECT_DIR$/src/ios/Classes/MuPageViewNormal.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/Classes/MuPageViewNormal.m" afterPath="$PROJECT_DIR$/src/ios/Classes/MuPageViewNormal.m" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/Classes/MuPrintPageRenderer.h" afterPath="$PROJECT_DIR$/src/ios/Classes/MuPrintPageRenderer.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/pdf/annot.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/pdf/annot.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/annotation.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/annotation.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/bitmap.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/bitmap.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/buffer.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/buffer.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/colorspace.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/colorspace.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/common.h" afterPath="$PROJECT_DIR$/src/ios/common.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/compressed-buffer.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/compressed-buffer.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/context.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/context.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/crypt.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/crypt.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/device.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/device.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/display-list.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/display-list.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/document.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/document.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/filter.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/filter.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/font.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/font.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/function.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/function.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/glyph-cache.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/glyph-cache.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/glyph.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/glyph.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/hash.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/hash.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/html.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/html.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/image.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/image.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/link.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/link.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/math.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/math.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/meta.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/meta.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/pdf/object.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/pdf/object.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/outline.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/outline.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/output-pcl.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/output-pcl.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/pdf/output-pdf.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/pdf/output-pdf.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/output-png.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/output-png.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/output-pnm.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/output-pnm.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/output-pwg.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/output-pwg.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/output-svg.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/output-svg.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/output-tga.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/output-tga.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/output.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/output.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/pdf/page.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/pdf/page.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/path.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/path.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/pdf.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/pdf.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/pixmap.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/pixmap.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugin.xml" afterPath="$PROJECT_DIR$/plugin.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/pdf/resource.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/pdf/resource.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/shade.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/shade.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/store.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/store.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/stream.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/stream.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/string.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/string.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/structured-text.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/structured-text.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/system.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/system.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/text.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/text.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/transition.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/transition.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/tree.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/tree.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/unzip.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/unzip.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/android/MuPdfPlugin.java" afterPath="$PROJECT_DIR$/src/android/MuPdfPlugin.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/write-document.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/write-document.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/xml.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/fitz/xml.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/xps.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/xps.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ios/include/mupdf/pdf/xref.h" afterPath="$PROJECT_DIR$/src/ios/include/mupdf/pdf/xref.h" />
     </list>
     <ignored path="cordova-plugin-mupdf.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -105,10 +34,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="MuPdfPlugin.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/android/MuPdfPlugin.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.75170845" vertical-offset="540" max-vertical-offset="1110">
+              <caret line="67" column="27" selection-start-line="67" selection-start-column="27" selection-end-line="67" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="MuPageViewNormal.m" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ios/Classes/MuPageViewNormal.m">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="20055" max-vertical-offset="20955">
+            <state vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="20955">
               <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding />
             </state>
@@ -128,7 +67,7 @@
       <file leaf-file-name="common.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ios/common.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="480">
+            <state vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="480">
               <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
               <folding />
             </state>
@@ -138,7 +77,7 @@
       <file leaf-file-name="common.m" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ios/common.m">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="721" max-vertical-offset="1170">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1170">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
@@ -148,17 +87,17 @@
       <file leaf-file-name="pdf.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ios/include/mupdf/pdf.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="495">
+            <state vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="495">
               <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="plugin.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="plugin.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/plugin.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.0155902" vertical-offset="1149" max-vertical-offset="3315">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1149" max-vertical-offset="3315">
               <caret line="107" column="4" selection-start-line="107" selection-start-column="4" selection-end-line="107" selection-end-column="4" />
               <folding />
             </state>
@@ -168,7 +107,7 @@
       <file leaf-file-name="xps.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ios/include/mupdf/xps.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4005">
+            <state vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="4005">
               <caret line="4" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
               <folding />
             </state>
@@ -188,7 +127,7 @@
       <file leaf-file-name="fitz.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ios/include/mupdf/fitz.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="1005">
+            <state vertical-scroll-proportion="0.0" vertical-offset="375" max-vertical-offset="1005">
               <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
               <folding />
             </state>
@@ -203,7 +142,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/android/MuPdfPlugin.java" />
         <option value="$PROJECT_DIR$/src/ios/Classes/MuAnnotation.h" />
         <option value="$PROJECT_DIR$/src/ios/Classes/MuDocRef.h" />
         <option value="$PROJECT_DIR$/src/ios/Classes/MuDocRef.m" />
@@ -222,6 +160,7 @@
         <option value="$PROJECT_DIR$/src/ios/common.h" />
         <option value="$PROJECT_DIR$/src/ios/include/mupdf/pdf.h" />
         <option value="$PROJECT_DIR$/plugin.xml" />
+        <option value="$PROJECT_DIR$/src/android/MuPdfPlugin.java" />
       </list>
     </option>
   </component>
@@ -230,7 +169,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
-    <option name="width" value="954" />
+    <option name="width" value="1391" />
     <option name="height" value="823" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -256,7 +195,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -300,72 +238,13 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="ios" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="include" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mupdf" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cordova-plugin-mupdf" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ios" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="include" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mupdf" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pdf" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cordova-plugin-mupdf" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ios" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="include" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mupdf" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="fitz" />
+              <option name="myItemId" value="android" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -623,18 +502,26 @@
       <updated>1425702792225</updated>
       <workItem from="1425702797244" duration="1498000" />
       <workItem from="1426347625577" duration="3007000" />
-      <workItem from="1427697634101" duration="2837000" />
+      <workItem from="1427697634101" duration="2876000" />
+      <workItem from="1427727760964" duration="634000" />
     </task>
+    <task id="LOCAL-00001" summary="update to mupdf commit:e0f638b">
+      <created>1427702628683</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1427702628683</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7342000" />
+    <option name="totallyTimeSpent" value="8015000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="954" height="823" extended-state="0" />
+    <frame x="0" y="23" width="1391" height="823" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32968536" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3287858" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -645,11 +532,10 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.38267544" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25871015" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Statistic" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32831737" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -657,8 +543,10 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32831737" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="UnknownFeatures">
@@ -679,24 +567,90 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
+    <MESSAGE value="update to mupdf commit:e0f638b" />
+    <option name="LAST_COMMIT_MESSAGE" value="update to mupdf commit:e0f638b" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/android/MuPdfPlugin.java">
+    <entry file="file://$PROJECT_DIR$/src/ios/Classes/MuPageViewNormal.m">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="630">
+        <state vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="20955">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ios/Classes/MuPrintPageRenderer.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="210">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ios/common.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="480">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ios/common.m">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1170">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ios/include/mupdf/pdf.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="495">
+          <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugin.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3315">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ios/include/mupdf/xps.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="4005">
+          <caret line="4" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ios/include/mupdf/html.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="2925">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ios/include/mupdf/fitz.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="375" max-vertical-offset="1005">
+          <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/android/MuPdfPlugin.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.28169015" vertical-offset="285" max-vertical-offset="1065">
-          <caret line="20" column="10" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="630">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -721,7 +675,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2145">
           <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -745,7 +698,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2175">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -772,7 +724,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.5" vertical-offset="0" max-vertical-offset="900">
           <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -804,7 +755,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="451">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -879,14 +829,21 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="673">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/plugin.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0155902" vertical-offset="1149" max-vertical-offset="3315">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1149" max-vertical-offset="3315">
           <caret line="107" column="4" selection-start-line="107" selection-start-column="4" selection-end-line="107" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/android/MuPdfPlugin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.75170845" vertical-offset="540" max-vertical-offset="1110">
+          <caret line="67" column="27" selection-start-line="67" selection-start-column="27" selection-end-line="67" selection-end-column="27" />
           <folding />
         </state>
       </provider>

@@ -63,7 +63,10 @@ public class MuPdfPlugin extends CordovaPlugin {
          }
          else{
              //code launched in case of error
-             String message = intent.getStringExtra("result");
+             String message = "";
+             if(intent != null) {
+                 message = intent.getStringExtra("result");
+             }
              this.callbackContext.error(message);
          }
          break;
