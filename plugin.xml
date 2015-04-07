@@ -2,7 +2,7 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
   id="com.artifex.mupdfdemo"
-  version="0.0.1">
+  version="0.1.0">
 
   <name>Cordova Plugin MuPDF</name>
   <description>MuPDF</description>
@@ -114,6 +114,9 @@
     <header-file src="src/ios/include/mupdf/pdf/widget.h" />
     <header-file src="src/ios/include/mupdf/pdf/xref.h" />
 
+    <header-file src="src/ios/Classes/MBProgressHUD.h"/>
+    <source-file src="src/ios/Classes/MBProgressHUD.m"/>
+
     <header-file src="src/ios/Classes/MuAnnotSelectView.h" compiler-flags="-fno-objc-arc"/>
     <source-file src="src/ios/Classes/MuAnnotSelectView.m" compiler-flags="-fno-objc-arc"/>
     <header-file src="src/ios/Classes/MuAnnotation.h" compiler-flags="-fno-objc-arc"/>
@@ -165,6 +168,8 @@
     <resource-file src="src/ios/resources/ic_free_text@2x.png" />
     <resource-file src="src/ios/resources/ic_highlight.png" />
     <resource-file src="src/ios/resources/ic_highlight@2x.png" />
+    <resource-file src="src/ios/resources/ic_link.png" />
+    <resource-file src="src/ios/resources/ic_link@2x.png" />
     <resource-file src="src/ios/resources/ic_magnifying_glass.png" />
     <resource-file src="src/ios/resources/ic_magnifying_glass@2x.png" />
     <resource-file src="src/ios/resources/ic_more.png" />

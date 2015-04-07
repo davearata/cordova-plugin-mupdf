@@ -6,6 +6,7 @@
 #import "MuTextFieldController.h"
 #import "MuChoiceFieldController.h"
 #import "MuPrintPageRenderer.h"
+#import "MBProgressHUD.h"
 
 #define GAP 20
 #define INDICATOR_Y -44-24
@@ -276,7 +277,7 @@ static NSDictionary* saveDoc(char *current_path, fz_document *doc, BOOL isAnnota
 	// if (outlineButton)
 		// [array addObject:outlineButton];
 	// [array addObject:reflowButton];
-	// [array addObject:linkButton];
+	[array addObject:linkButton];
 	[[self navigationItem] setRightBarButtonItems: array ];
 	[[self navigationItem] setLeftBarButtonItem:backButton];
 }
@@ -345,7 +346,7 @@ static NSDictionary* saveDoc(char *current_path, fz_document *doc, BOOL isAnnota
 	// if (outline) {
 	// 	outlineButton = [self newResourceBasedButton:@"ic_list" withAction:@selector(onShowOutline:)];
 	// }
-	// linkButton = [self newResourceBasedButton:@"ic_link" withAction:@selector(onToggleLinks:)];
+	linkButton = [self newResourceBasedButton:@"ic_link" withAction:@selector(onToggleLinks:)];
 	cancelButton = [self newResourceBasedButton:@"ic_cancel" withAction:@selector(onCancel:)];
 	searchButton = [self newResourceBasedButton:@"ic_magnifying_glass" withAction:@selector(onShowSearch:)];
 	prevButton = [self newResourceBasedButton:@"ic_arrow_left" withAction:@selector(onSearchPrev:)];
@@ -545,9 +546,19 @@ static NSDictionary* saveDoc(char *current_path, fz_document *doc, BOOL isAnnota
 	showLinks = !showLinks;
 	for (UIView<MuPageView> *view in [canvas subviews])
 	{
-		if (showLinks)
+		if (showLinks) {
 			[view showLinks];
-		else
+			MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+
+			// Configure for text only and offset down
+			hud.mode = MBProgressHUDModeText;
+			hud.labelText = @"Hyperlinks are now highlighted and enabled";
+			hud.margin = 10.f;
+			hud.yOffset = 150.f;
+			hud.removeFromSuperViewOnHide = YES;
+
+			[hud hide:YES afterDelay:2];
+		} else
 			[view hideLinks];
 	}
 }
@@ -1001,7 +1012,7 @@ static NSDictionary* saveDoc(char *current_path, fz_document *doc, BOOL isAnnota
 				[self gotoPage:link.pageNumber animated:NO];
 				tapHandled = YES;
 			} caseExternal:^(MuTapResultExternalLink *link) {
-				// Not currently supported
+				[[UIApplication sharedApplication] openURL:[NSURL URLWithString:link.url]];
 			} caseRemote:^(MuTapResultRemoteLink *link) {
 				// Not currently supported
 			} caseWidget:^(MuTapResultWidget *widget) {
