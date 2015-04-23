@@ -2,7 +2,7 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
   id="com.artifex.mupdfdemo"
-  version="0.1.0">
+  version="0.1.1">
 
   <name>Cordova Plugin MuPDF</name>
   <description>MuPDF</description>
