@@ -2,7 +2,7 @@
 
 fz_context *ctx;
 dispatch_queue_t queue;
-float screenScale = 1;
+float screenScale = 2;
 
 CGSize fitPageToScreen(CGSize page, CGSize screen)
 {
