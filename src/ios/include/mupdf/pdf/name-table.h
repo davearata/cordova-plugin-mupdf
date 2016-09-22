@@ -101,8 +101,6 @@ enum
 	PDF_OBJ_ENUM_NAME_CA,
 #define PDF_NAME_CCF  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_CCF)
 	PDF_OBJ_ENUM_NAME_CCF,
-#define PDF_NAME_CCITTFaxDecod  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_CCITTFaxDecod)
-	PDF_OBJ_ENUM_NAME_CCITTFaxDecod,
 #define PDF_NAME_CCITTFaxDecode  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_CCITTFaxDecode)
 	PDF_OBJ_ENUM_NAME_CCITTFaxDecode,
 #define PDF_NAME_CF  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_CF)
@@ -159,6 +157,8 @@ enum
 	PDF_OBJ_ENUM_NAME_Count,
 #define PDF_NAME_Cover  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_Cover)
 	PDF_OBJ_ENUM_NAME_Cover,
+#define PDF_NAME_CreationDate  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_CreationDate)
+	PDF_OBJ_ENUM_NAME_CreationDate,
 #define PDF_NAME_Creator  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_Creator)
 	PDF_OBJ_ENUM_NAME_Creator,
 #define PDF_NAME_CropBox  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_CropBox)
@@ -173,8 +173,6 @@ enum
 	PDF_OBJ_ENUM_NAME_DC,
 #define PDF_NAME_DCT  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_DCT)
 	PDF_OBJ_ENUM_NAME_DCT,
-#define PDF_NAME_DCTDecod  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_DCTDecod)
-	PDF_OBJ_ENUM_NAME_DCTDecod,
 #define PDF_NAME_DCTDecode  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_DCTDecode)
 	PDF_OBJ_ENUM_NAME_DCTDecode,
 #define PDF_NAME_DOS  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_DOS)
@@ -291,8 +289,6 @@ enum
 	PDF_OBJ_ENUM_NAME_Fl,
 #define PDF_NAME_Flags  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_Flags)
 	PDF_OBJ_ENUM_NAME_Flags,
-#define PDF_NAME_FlateDecod  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_FlateDecod)
-	PDF_OBJ_ENUM_NAME_FlateDecod,
 #define PDF_NAME_FlateDecode  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_FlateDecode)
 	PDF_OBJ_ENUM_NAME_FlateDecode,
 #define PDF_NAME_Fly  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_Fly)
@@ -349,6 +345,8 @@ enum
 	PDF_OBJ_ENUM_NAME_ID,
 #define PDF_NAME_IM  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_IM)
 	PDF_OBJ_ENUM_NAME_IM,
+#define PDF_NAME_IRT  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_IRT)
+	PDF_OBJ_ENUM_NAME_IRT,
 #define PDF_NAME_Identity  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_Identity)
 	PDF_OBJ_ENUM_NAME_Identity,
 #define PDF_NAME_Identity_H  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_Identity_H)
@@ -403,12 +401,12 @@ enum
 	PDF_OBJ_ENUM_NAME_LZ,
 #define PDF_NAME_LZW  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_LZW)
 	PDF_OBJ_ENUM_NAME_LZW,
-#define PDF_NAME_LZWDecod  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_LZWDecod)
-	PDF_OBJ_ENUM_NAME_LZWDecod,
 #define PDF_NAME_LZWDecode  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_LZWDecode)
 	PDF_OBJ_ENUM_NAME_LZWDecode,
 #define PDF_NAME_Lab  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_Lab)
 	PDF_OBJ_ENUM_NAME_Lab,
+#define PDF_NAME_Last  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_Last)
+	PDF_OBJ_ENUM_NAME_Last,
 #define PDF_NAME_LastChar  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_LastChar)
 	PDF_OBJ_ENUM_NAME_LastChar,
 #define PDF_NAME_Launch  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_Launch)
@@ -495,6 +493,8 @@ enum
 	PDF_OBJ_ENUM_NAME_Of,
 #define PDF_NAME_Off  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_Off)
 	PDF_OBJ_ENUM_NAME_Off,
+#define PDF_NAME_OpenType  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_OpenType)
+	PDF_OBJ_ENUM_NAME_OpenType,
 #define PDF_NAME_Opt  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_Opt)
 	PDF_OBJ_ENUM_NAME_Opt,
 #define PDF_NAME_Ordering  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_Ordering)
@@ -559,6 +559,8 @@ enum
 	PDF_OBJ_ENUM_NAME_Range,
 #define PDF_NAME_Rect  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_Rect)
 	PDF_OBJ_ENUM_NAME_Rect,
+#define PDF_NAME_Ref  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_Ref)
+	PDF_OBJ_ENUM_NAME_Ref,
 #define PDF_NAME_Registry  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_Registry)
 	PDF_OBJ_ENUM_NAME_Registry,
 #define PDF_NAME_ResetForm  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_ResetForm)
@@ -571,8 +573,6 @@ enum
 	PDF_OBJ_ENUM_NAME_Rotate,
 #define PDF_NAME_Rows  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_Rows)
 	PDF_OBJ_ENUM_NAME_Rows,
-#define PDF_NAME_RunLengthDecod  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_RunLengthDecod)
-	PDF_OBJ_ENUM_NAME_RunLengthDecod,
 #define PDF_NAME_RunLengthDecode  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_RunLengthDecode)
 	PDF_OBJ_ENUM_NAME_RunLengthDecode,
 #define PDF_NAME_S  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_S)
@@ -611,6 +611,8 @@ enum
 	PDF_OBJ_ENUM_NAME_Standard,
 #define PDF_NAME_StdCF  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_StdCF)
 	PDF_OBJ_ENUM_NAME_StdCF,
+#define PDF_NAME_StemV  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_StemV)
+	PDF_OBJ_ENUM_NAME_StemV,
 #define PDF_NAME_StmF  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_StmF)
 	PDF_OBJ_ENUM_NAME_StmF,
 #define PDF_NAME_StrF  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_StrF)
@@ -623,6 +625,8 @@ enum
 	PDF_OBJ_ENUM_NAME_Subtype,
 #define PDF_NAME_Subtype2  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_Subtype2)
 	PDF_OBJ_ENUM_NAME_Subtype2,
+#define PDF_NAME_Supplement  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_Supplement)
+	PDF_OBJ_ENUM_NAME_Supplement,
 #define PDF_NAME_T  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_T)
 	PDF_OBJ_ENUM_NAME_T,
 #define PDF_NAME_TR  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_TR)
@@ -631,6 +635,8 @@ enum
 	PDF_OBJ_ENUM_NAME_TR2,
 #define PDF_NAME_Text  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_Text)
 	PDF_OBJ_ENUM_NAME_Text,
+#define PDF_NAME_TilingType  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_TilingType)
+	PDF_OBJ_ENUM_NAME_TilingType,
 #define PDF_NAME_Title  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_Title)
 	PDF_OBJ_ENUM_NAME_Title,
 #define PDF_NAME_ToUnicode  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_ToUnicode)

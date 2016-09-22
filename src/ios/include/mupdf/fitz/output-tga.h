@@ -5,6 +5,7 @@
 #include "context.h"
 #include "pixmap.h"
 
-void fz_write_tga(fz_context *ctx, fz_pixmap *pixmap, const char *filename, int savealpha);
+void fz_save_pixmap_as_tga(fz_context *ctx, fz_pixmap *pixmap, const char *filename);
+void fz_write_pixmap_as_tga(fz_context *ctx, fz_output *out, fz_pixmap *pixmap);
 
 #endif

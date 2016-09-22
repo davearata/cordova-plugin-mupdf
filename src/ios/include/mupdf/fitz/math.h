@@ -33,6 +33,8 @@ float fz_atof(const char *s);
 /* atoi that copes with NULL */
 int fz_atoi(const char *s);
 
+fz_off_t fz_atoo(const char *s);
+
 /*
 	Some standard math functions, done as static inlines for speed.
 	People with compilers that do not adequately implement inlines may
@@ -58,12 +60,22 @@ static inline int fz_mini(int a, int b)
 	return (a < b ? a : b);
 }
 
+static inline size_t fz_minz(size_t a, size_t b)
+{
+	return (a < b ? a : b);
+}
+
 static inline float fz_max(float a, float b)
 {
 	return (a > b ? a : b);
 }
 
 static inline int fz_maxi(int a, int b)
+{
+	return (a > b ? a : b);
+}
+
+static inline fz_off_t fz_maxo(fz_off_t a, fz_off_t b)
 {
 	return (a > b ? a : b);
 }
@@ -105,7 +117,7 @@ struct fz_point_s
 
 	Rectangles are always axis-aligned with the X- and Y- axes.
 	The relationship between the coordinates are that x0 <= x1 and
-	y0 <= y1 in all cases except for infinte rectangles. The area
+	y0 <= y1 in all cases except for infinite rectangles. The area
 	of a rectangle is defined as (x1 - x0) * (y1 - y0). If either
 	x0 > x1 or y0 > y1 is true for a given rectangle then it is
 	defined to be infinite.
@@ -115,7 +127,7 @@ struct fz_point_s
 
 	x0, y0: The top left corner.
 
-	x1, y1: The botton right corner.
+	x1, y1: The bottom right corner.
 */
 typedef struct fz_rect_s fz_rect;
 struct fz_rect_s
@@ -285,6 +297,21 @@ fz_matrix *fz_scale(fz_matrix *m, float sx, float sy);
 	Does not throw exceptions.
 */
 fz_matrix *fz_pre_scale(fz_matrix *m, float sx, float sy);
+
+/*
+	fz_post_scale: Scale a matrix by postmultiplication.
+
+	m: Pointer to the matrix to scale
+
+	sx, sy: Scaling factors along the X- and Y-axes. A scaling
+	factor of 1.0 will not cause any scaling along the relevant
+	axis.
+
+	Returns m (updated).
+
+	Does not throw exceptions.
+*/
+fz_matrix *fz_post_scale(fz_matrix *m, float sx, float sy);
 
 /*
 	fz_shear: Create a shearing matrix.
@@ -548,6 +575,15 @@ fz_rect *fz_include_point_in_rect(fz_rect *r, const fz_point *p);
 fz_irect *fz_translate_irect(fz_irect *a, int xoff, int yoff);
 
 /*
+	fz_contains_rect: Test rectangle inclusion.
+
+	Return true if a entirely contains b.
+
+	Does not throw exceptions.
+*/
+int fz_contains_rect(const fz_rect *a, const fz_rect *b);
+
+/*
 	fz_transform_point: Apply a transformation to a point.
 
 	transform: Transformation matrix to apply. See fz_concat,
@@ -600,7 +636,7 @@ fz_rect *fz_transform_rect(fz_rect *restrict rect, const fz_matrix *restrict tra
 */
 void fz_normalize_vector(fz_point *p);
 
-void fz_gridfit_matrix(fz_matrix *m);
+void fz_gridfit_matrix(int as_tiled, fz_matrix *m);
 
 float fz_matrix_max_expansion(const fz_matrix *m);
 

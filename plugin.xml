@@ -2,7 +2,7 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
   id="com.artifex.mupdfdemo"
-  version="0.1.1">
+  version="1.0.0">
 
   <name>Cordova Plugin MuPDF</name>
   <description>MuPDF</description>
@@ -30,12 +30,7 @@
     <framework src="libz.dylib" />
 
     <source-file src="src/ios/libmupdf.a" framework="true" />
-    <source-file src="src/ios/libmujs.a" framework="true" />
-    <source-file src="src/ios/libfreetype.a" framework="true" />
-    <source-file src="src/ios/libjbig2dec.a" framework="true" />
-    <source-file src="src/ios/libjpeg.a" framework="true" />
-    <source-file src="src/ios/libopenjpeg.a" framework="true" />
-    <source-file src="src/ios/libz.a" framework="true" />
+    <source-file src="src/ios/libmupdfthird.a" framework="true" />
 
     <source-file src="src/ios/common.m" compiler-flags="-fno-objc-arc"/>
     <header-file src="src/ios/common.h" compiler-flags="-fno-objc-arc"/>
@@ -48,13 +43,17 @@
     <header-file src="src/ios/include/mupdf/memento.h"/>
     <header-file src="src/ios/include/mupdf/pdf-tools.h"/>
     <header-file src="src/ios/include/mupdf/pdf.h"/>
+    <header-file src="src/ios/include/mupdf/svg.h"/>
     <header-file src="src/ios/include/mupdf/xps.h"/>
 
     <header-file src="src/ios/include/mupdf/fitz/annotation.h" />
+    <header-file src="src/ios/include/mupdf/fitz/archive.h" />
+    <header-file src="src/ios/include/mupdf/fitz/bidi.h" />
     <header-file src="src/ios/include/mupdf/fitz/bitmap.h" />
     <header-file src="src/ios/include/mupdf/fitz/buffer.h" />
     <header-file src="src/ios/include/mupdf/fitz/colorspace.h" />
     <header-file src="src/ios/include/mupdf/fitz/compressed-buffer.h" />
+    <header-file src="src/ios/include/mupdf/fitz/config.h" />
     <header-file src="src/ios/include/mupdf/fitz/context.h" />
     <header-file src="src/ios/include/mupdf/fitz/crypt.h" />
     <header-file src="src/ios/include/mupdf/fitz/device.h" />
@@ -70,17 +69,19 @@
     <header-file src="src/ios/include/mupdf/fitz/image.h" />
     <header-file src="src/ios/include/mupdf/fitz/link.h" />
     <header-file src="src/ios/include/mupdf/fitz/math.h" />
-    <header-file src="src/ios/include/mupdf/fitz/meta.h" />
     <header-file src="src/ios/include/mupdf/fitz/outline.h" />
     <header-file src="src/ios/include/mupdf/fitz/output-pcl.h" />
     <header-file src="src/ios/include/mupdf/fitz/output-png.h" />
     <header-file src="src/ios/include/mupdf/fitz/output-pnm.h" />
+    <header-file src="src/ios/include/mupdf/fitz/output-ps.h" />
     <header-file src="src/ios/include/mupdf/fitz/output-pwg.h" />
     <header-file src="src/ios/include/mupdf/fitz/output-svg.h" />
     <header-file src="src/ios/include/mupdf/fitz/output-tga.h" />
     <header-file src="src/ios/include/mupdf/fitz/output.h" />
     <header-file src="src/ios/include/mupdf/fitz/path.h" />
     <header-file src="src/ios/include/mupdf/fitz/pixmap.h" />
+    <header-file src="src/ios/include/mupdf/fitz/pool.h" />
+    <header-file src="src/ios/include/mupdf/fitz/separation.h" />
     <header-file src="src/ios/include/mupdf/fitz/shade.h" />
     <header-file src="src/ios/include/mupdf/fitz/store.h" />
     <header-file src="src/ios/include/mupdf/fitz/stream.h" />
@@ -88,15 +89,18 @@
     <header-file src="src/ios/include/mupdf/fitz/structured-text.h" />
     <header-file src="src/ios/include/mupdf/fitz/system.h" />
     <header-file src="src/ios/include/mupdf/fitz/text.h" />
+    <header-file src="src/ios/include/mupdf/fitz/track-usage.h" />
     <header-file src="src/ios/include/mupdf/fitz/transition.h" />
     <header-file src="src/ios/include/mupdf/fitz/tree.h" />
-    <header-file src="src/ios/include/mupdf/fitz/unzip.h" />
+    <header-file src="src/ios/include/mupdf/fitz/ucdn.h" />
+    <header-file src="src/ios/include/mupdf/fitz/util.h" />
     <header-file src="src/ios/include/mupdf/fitz/version.h" />
-    <header-file src="src/ios/include/mupdf/fitz/write-document.h" />
+    <header-file src="src/ios/include/mupdf/fitz/writer.h" />
     <header-file src="src/ios/include/mupdf/fitz/xml.h" />
 
     <header-file src="src/ios/include/mupdf/pdf/annot.h" />
     <header-file src="src/ios/include/mupdf/pdf/appearance.h" />
+    <header-file src="src/ios/include/mupdf/pdf/clean.h" />
     <header-file src="src/ios/include/mupdf/pdf/cmap.h" />
     <header-file src="src/ios/include/mupdf/pdf/pdf-crypt.h" />
     <header-file src="src/ios/include/mupdf/pdf/pdf-document.h" />
@@ -113,6 +117,9 @@
     <header-file src="src/ios/include/mupdf/pdf/resource.h" />
     <header-file src="src/ios/include/mupdf/pdf/widget.h" />
     <header-file src="src/ios/include/mupdf/pdf/xref.h" />
+
+    <header-file src="src/ios/include/thirdparty/zlib/contrib/minizip/ioapi.h" />
+    <header-file src="src/ios/include/thirdparty/zlib/contrib/minizip/unzip.h" />
 
     <header-file src="src/ios/Classes/MBProgressHUD.h"/>
     <source-file src="src/ios/Classes/MBProgressHUD.m"/>

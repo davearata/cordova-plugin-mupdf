@@ -65,8 +65,8 @@ fz_glyph *fz_new_glyph_from_8bpp_data(fz_context *ctx, int x, int y, int w, int 
 
 	Returns a pointer to the new glyph. Throws exception on failure to
 	allocate.
-*/fz_glyph *fz_new_glyph_from_1bpp_data(fz_context *ctx, int x, int y, int w, int h, unsigned char *sp, int span);
-
+*/
+fz_glyph *fz_new_glyph_from_1bpp_data(fz_context *ctx, int x, int y, int w, int h, unsigned char *sp, int span);
 
 /*
 	fz_keep_glyph: Take a reference to a glyph.
@@ -118,15 +118,15 @@ struct fz_glyph_s
 	fz_storable storable;
 	int x, y, w, h;
 	fz_pixmap *pixmap;
-	int size;
+	size_t size;
 	unsigned char data[1];
 };
 
-static unsigned int fz_glyph_size(fz_context *ctx, fz_glyph *glyph);
+static size_t fz_glyph_size(fz_context *ctx, fz_glyph *glyph);
 
 fz_irect *fz_glyph_bbox_no_ctx(fz_glyph *src, fz_irect *bbox);
 
-static inline unsigned int
+static inline size_t
 fz_glyph_size(fz_context *ctx, fz_glyph *glyph)
 {
 	if (glyph == NULL)

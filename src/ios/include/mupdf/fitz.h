@@ -1,7 +1,12 @@
 #ifndef MUDPF_FITZ_H
 #define MUDPF_FITZ_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "version.h"
+#include "config.h"
 #include "system.h"
 #include "context.h"
 
@@ -9,8 +14,11 @@
 #include "getopt.h"
 #include "hash.h"
 #include "math.h"
+#include "pool.h"
 #include "string.h"
 #include "tree.h"
+#include "ucdn.h"
+#include "bidi.h"
 #include "xml.h"
 
 /* I/O */
@@ -19,7 +27,7 @@
 #include "compressed-buffer.h"
 #include "filter.h"
 #include "output.h"
-#include "unzip.h"
+#include "archive.h"
 
 /* Resources */
 #include "store.h"
@@ -33,6 +41,7 @@
 #include "font.h"
 #include "path.h"
 #include "text.h"
+#include "separation.h"
 
 #include "device.h"
 #include "display-list.h"
@@ -46,16 +55,21 @@
 #include "outline.h"
 #include "document.h"
 #include "annotation.h"
-#include "meta.h"
 
-#include "write-document.h"
+#include "util.h"
 
 /* Output formats */
+#include "writer.h"
 #include "output-pnm.h"
 #include "output-png.h"
 #include "output-pwg.h"
 #include "output-pcl.h"
+#include "output-ps.h"
 #include "output-svg.h"
 #include "output-tga.h"
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

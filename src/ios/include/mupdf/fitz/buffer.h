@@ -36,14 +36,15 @@ void fz_drop_buffer(fz_context *ctx, fz_buffer *buf);
 
 	Returns length of stream.
 */
-int fz_buffer_storage(fz_context *ctx, fz_buffer *buf, unsigned char **data);
+size_t fz_buffer_storage(fz_context *ctx, fz_buffer *buf, unsigned char **data);
 
 struct fz_buffer_s
 {
 	int refs;
 	unsigned char *data;
-	int cap, len;
+	size_t cap, len;
 	int unused_bits;
+	int shared;
 };
 
 /*
@@ -54,7 +55,7 @@ struct fz_buffer_s
 	Returns pointer to new buffer. Throws exception on allocation
 	failure.
 */
-fz_buffer *fz_new_buffer(fz_context *ctx, int capacity);
+fz_buffer *fz_new_buffer(fz_context *ctx, size_t capacity);
 
 /*
 	fz_new_buffer_from_data: Create a new buffer with existing data.
@@ -69,7 +70,17 @@ fz_buffer *fz_new_buffer(fz_context *ctx, int capacity);
 	Returns pointer to new buffer. Throws exception on allocation
 	failure.
 */
-fz_buffer *fz_new_buffer_from_data(fz_context *ctx, unsigned char *data, int size);
+fz_buffer *fz_new_buffer_from_data(fz_context *ctx, unsigned char *data, size_t size);
+
+/*
+	fz_new_buffer_from_shared_data: Like fz_new_buffer, but does not take ownership.
+*/
+fz_buffer *fz_new_buffer_from_shared_data(fz_context *ctx, const char *data, size_t size);
+
+/*
+	fz_new_buffer_from_base64: Create a new buffer with data decoded from a base64 input string.
+*/
+fz_buffer *fz_new_buffer_from_base64(fz_context *ctx, const char *data, size_t size);
 
 /*
 	fz_resize_buffer: Ensure that a buffer has a given capacity,
@@ -81,7 +92,7 @@ fz_buffer *fz_new_buffer_from_data(fz_context *ctx, unsigned char *data, int siz
 	of the buffer contents is smaller than capacity, it is truncated.
 
 */
-void fz_resize_buffer(fz_context *ctx, fz_buffer *buf, int capacity);
+void fz_resize_buffer(fz_context *ctx, fz_buffer *buf, size_t capacity);
 
 /*
 	fz_grow_buffer: Make some space within a buffer (i.e. ensure that
@@ -101,37 +112,35 @@ void fz_grow_buffer(fz_context *ctx, fz_buffer *buf);
 void fz_trim_buffer(fz_context *ctx, fz_buffer *buf);
 
 /*
-	fz_buffer_cat: Concatenate buffers
+	fz_append_buffer: Concatenate buffers
 
 	buf: first to concatenate and the holder of the result
 	extra: second to concatenate
 
 	May throw exception on failure to allocate.
 */
-void fz_buffer_cat(fz_context *ctx, fz_buffer *buf, fz_buffer *extra);
+void fz_append_buffer(fz_context *ctx, fz_buffer *buf, fz_buffer *extra);
 
-void fz_write_buffer(fz_context *ctx, fz_buffer *buf, const void *data, int len);
-
+/*
+	fz_write_buffer*: write to a buffer.
+	fz_buffer_printf: print formatted to a buffer.
+	fz_buffer_print_pdfstring: Print a string using PDF syntax and escapes.
+	The buffer will grow as required.
+*/
+void fz_write_buffer(fz_context *ctx, fz_buffer *buf, const void *data, size_t len);
 void fz_write_buffer_byte(fz_context *ctx, fz_buffer *buf, int val);
-
 void fz_write_buffer_rune(fz_context *ctx, fz_buffer *buf, int val);
-
+void fz_write_buffer_int32_le(fz_context *ctx, fz_buffer *buf, int x);
+void fz_write_buffer_int16_le(fz_context *ctx, fz_buffer *buf, int x);
 void fz_write_buffer_bits(fz_context *ctx, fz_buffer *buf, int val, int bits);
-
 void fz_write_buffer_pad(fz_context *ctx, fz_buffer *buf);
+size_t fz_buffer_printf(fz_context *ctx, fz_buffer *buffer, const char *fmt, ...);
+size_t fz_buffer_vprintf(fz_context *ctx, fz_buffer *buffer, const char *fmt, va_list args);
+void fz_buffer_print_pdf_string(fz_context *ctx, fz_buffer *buffer, const char *text);
 
 /*
-	fz_buffer_printf: print formatted to a buffer. The buffer will grow
-	as required.
+	fz_md5_buffer: create MD5 digest of buffer contents.
 */
-int fz_buffer_printf(fz_context *ctx, fz_buffer *buffer, const char *fmt, ...);
-int fz_buffer_vprintf(fz_context *ctx, fz_buffer *buffer, const char *fmt, va_list args);
-
-/*
-	fz_buffer_printf: print a string formatted as a pdf string to a buffer.
-	The buffer will grow.
-*/
-void
-fz_buffer_cat_pdf_string(fz_context *ctx, fz_buffer *buffer, const char *text);
+void fz_md5_buffer(fz_context *ctx, fz_buffer *buffer, unsigned char digest[16]);
 
 #endif

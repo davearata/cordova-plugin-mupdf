@@ -5,12 +5,13 @@ NSString *textAsHtml(fz_document *doc, int pageNum)
 {
 	NSString *str = nil;
 	fz_page *page = NULL;
-	fz_text_sheet *sheet = NULL;
-	fz_text_page *text = NULL;
+	fz_stext_sheet *sheet = NULL;
+	fz_stext_page *text = NULL;
 	fz_device *dev = NULL;
 	fz_matrix ctm;
 	fz_buffer *buf = NULL;
 	fz_output *out = NULL;
+	fz_rect mediabox;
 
 	fz_var(page);
 	fz_var(sheet);
@@ -22,11 +23,12 @@ NSString *textAsHtml(fz_document *doc, int pageNum)
 	fz_try(ctx)
 	{
 		ctm = fz_identity;
-		sheet = fz_new_text_sheet(ctx);
-		text = fz_new_text_page(ctx);
-		dev = fz_new_text_device(ctx, sheet, text);
+		sheet = fz_new_stext_sheet(ctx);
+		text = fz_new_stext_page(ctx, fz_bound_page(ctx, page, &mediabox));
+		dev = fz_new_stext_device(ctx, sheet, text, 0);
 		page = fz_load_page(ctx, doc, pageNum);
 		fz_run_page(ctx, page, dev, &ctm, NULL);
+		fz_close_device(ctx, dev);
 		fz_drop_device(ctx, dev);
 		dev = NULL;
 
@@ -45,10 +47,10 @@ NSString *textAsHtml(fz_document *doc, int pageNum)
 		//fz_printf(ctx, out, "p{margin:0;padding:0;}\n");
 		fz_printf(ctx, out, "</style>\n");
 		fz_printf(ctx, out, "<body style=\"margin:0\"><div style=\"padding:10px\" id=\"content\">");
-		fz_print_text_page_html(ctx, out, text);
+		fz_print_stext_page_html(ctx, out, text);
 		fz_printf(ctx, out, "</div></body>\n");
 		fz_printf(ctx, out, "<style>\n");
-		fz_print_text_sheet(ctx, out, sheet);
+		fz_print_stext_sheet(ctx, out, sheet);
 		fz_printf(ctx, out, "</style>\n</html>\n");
 
 		out = NULL;
@@ -57,8 +59,8 @@ NSString *textAsHtml(fz_document *doc, int pageNum)
 	}
 	fz_always(ctx)
 	{
-		fz_drop_text_page(ctx, text);
-		fz_drop_text_sheet(ctx, sheet);
+		fz_drop_stext_page(ctx, text);
+		fz_drop_stext_sheet(ctx, sheet);
 		fz_drop_device(ctx, dev);
 		fz_drop_output(ctx, out);
 		fz_drop_buffer(ctx, buf);
@@ -78,14 +80,14 @@ NSString *textAsHtml(fz_document *doc, int pageNum)
 	float scale;
 }
 
-- (id)initWithFrame:(CGRect)frame document:(MuDocRef *)aDoc page:(int)aNumber
+- (instancetype)initWithFrame:(CGRect)frame document:(MuDocRef *)aDoc page:(int)aNumber
 {
 	self = [super initWithFrame:frame];
 	if (self) {
 		number = aNumber;
 		scale = 1.0;
 		self.scalesPageToFit = NO;
-		[self setDelegate:self];
+		self.delegate = self;
 		dispatch_async(queue, ^{
 			__block NSString *cont = [textAsHtml(aDoc->doc, aNumber) retain];
 			dispatch_async(dispatch_get_main_queue(), ^{

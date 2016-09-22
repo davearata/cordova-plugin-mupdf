@@ -17,56 +17,81 @@ typedef struct fz_document_handler_s fz_document_handler;
 typedef struct fz_page_s fz_page;
 typedef struct fz_annot_s fz_annot;
 
-// TODO: move out of this interface (it's pdf specific)
-typedef struct fz_write_options_s fz_write_options;
+typedef enum
+{
+	FZ_PERMISSION_PRINT = 'p',
+	FZ_PERMISSION_COPY = 'c',
+	FZ_PERMISSION_EDIT = 'e',
+	FZ_PERMISSION_ANNOTATE = 'n',
+}
+fz_permission;
 
-typedef void (fz_document_close_fn)(fz_context *ctx, fz_document *doc);
+typedef void (fz_document_drop_fn)(fz_context *ctx, fz_document *doc);
 typedef int (fz_document_needs_password_fn)(fz_context *ctx, fz_document *doc);
 typedef int (fz_document_authenticate_password_fn)(fz_context *ctx, fz_document *doc, const char *password);
+typedef int (fz_document_has_permission_fn)(fz_context *ctx, fz_document *doc, fz_permission permission);
 typedef fz_outline *(fz_document_load_outline_fn)(fz_context *ctx, fz_document *doc);
 typedef void (fz_document_layout_fn)(fz_context *ctx, fz_document *doc, float w, float h, float em);
 typedef int (fz_document_count_pages_fn)(fz_context *ctx, fz_document *doc);
 typedef fz_page *(fz_document_load_page_fn)(fz_context *ctx, fz_document *doc, int number);
-typedef int (fz_document_meta_fn)(fz_context *ctx, fz_document *doc, int key, void *ptr, int size);
-typedef void (fz_document_write_fn)(fz_context *ctx, fz_document *doc, char *filename, fz_write_options *opts);
+typedef int (fz_document_lookup_metadata_fn)(fz_context *ctx, fz_document *doc, const char *key, char *buf, int size);
 
 typedef fz_link *(fz_page_load_links_fn)(fz_context *ctx, fz_page *page);
 typedef fz_rect *(fz_page_bound_page_fn)(fz_context *ctx, fz_page *page, fz_rect *);
 typedef void (fz_page_run_page_contents_fn)(fz_context *ctx, fz_page *page, fz_device *dev, const fz_matrix *transform, fz_cookie *cookie);
-typedef void (fz_page_drop_page_imp_fn)(fz_context *ctx, fz_page *page);
-typedef fz_transition *(fz_page_page_presentation_fn)(fz_context *ctx, fz_page *page, float *duration);
+typedef void (fz_page_drop_page_fn)(fz_context *ctx, fz_page *page);
+typedef fz_transition *(fz_page_page_presentation_fn)(fz_context *ctx, fz_page *page, fz_transition *transition, float *duration);
 
 typedef fz_annot *(fz_page_first_annot_fn)(fz_context *ctx, fz_page *page);
-typedef fz_annot *(fz_page_next_annot_fn)(fz_context *ctx, fz_page *page, fz_annot *annot);
-typedef fz_rect *(fz_page_bound_annot_fn)(fz_context *ctx, fz_page *page, fz_annot *annot, fz_rect *rect);
-typedef void (fz_page_run_annot_fn)(fz_context *ctx, fz_page *page, fz_annot *annot, fz_device *dev, const fz_matrix *transform, fz_cookie *cookie);
+
+typedef void (fz_page_control_separation_fn)(fz_context *ctx, fz_page *page, int separation, int disable);
+typedef int (fz_page_separation_disabled_fn)(fz_context *ctx, fz_page *page, int separation);
+typedef int (fz_page_count_separations_fn)(fz_context *ctx, fz_page *page);
+typedef const char *(fz_page_get_separation_fn)(fz_context *ctx, fz_page *page, int separation, uint32_t *rgb, uint32_t *cmyk);
+
+typedef void (fz_annot_drop_fn)(fz_context *ctx, fz_annot *annot);
+typedef fz_annot *(fz_annot_next_fn)(fz_context *ctx, fz_annot *annot);
+typedef fz_rect *(fz_annot_bound_fn)(fz_context *ctx, fz_annot *annot, fz_rect *rect);
+typedef void (fz_annot_run_fn)(fz_context *ctx, fz_annot *annot, fz_device *dev, const fz_matrix *transform, fz_cookie *cookie);
+
+struct fz_annot_s
+{
+	int refs;
+	fz_annot_drop_fn *drop_annot;
+	fz_annot_bound_fn *bound_annot;
+	fz_annot_run_fn *run_annot;
+	fz_annot_next_fn *next_annot;
+};
 
 struct fz_page_s
 {
 	int refs;
-	fz_page_drop_page_imp_fn *drop_page_imp;
+	fz_page_drop_page_fn *drop_page;
 	fz_page_bound_page_fn *bound_page;
 	fz_page_run_page_contents_fn *run_page_contents;
 	fz_page_load_links_fn *load_links;
 	fz_page_first_annot_fn *first_annot;
-	fz_page_next_annot_fn *next_annot;
-	fz_page_bound_annot_fn *bound_annot;
-	fz_page_run_annot_fn *run_annot;
 	fz_page_page_presentation_fn *page_presentation;
+	fz_page_control_separation_fn *control_separation;
+	fz_page_separation_disabled_fn *separation_disabled;
+	fz_page_count_separations_fn *count_separations;
+	fz_page_get_separation_fn *get_separation;
 };
 
 struct fz_document_s
 {
 	int refs;
-	fz_document_close_fn *close;
+	fz_document_drop_fn *drop_document;
 	fz_document_needs_password_fn *needs_password;
 	fz_document_authenticate_password_fn *authenticate_password;
+	fz_document_has_permission_fn *has_permission;
 	fz_document_load_outline_fn *load_outline;
 	fz_document_layout_fn *layout;
 	fz_document_count_pages_fn *count_pages;
 	fz_document_load_page_fn *load_page;
-	fz_document_meta_fn *meta;
-	fz_document_write_fn *write;
+	fz_document_lookup_metadata_fn *lookup_metadata;
+	int did_layout;
+	int is_reflowable;
 };
 
 typedef fz_document *(fz_document_open_fn)(fz_context *ctx, const char *filename);
@@ -81,18 +106,18 @@ struct fz_document_handler_s
 };
 
 extern fz_document_handler pdf_document_handler;
-extern fz_document_handler pdf_no_run_document_handler;
 extern fz_document_handler xps_document_handler;
+extern fz_document_handler svg_document_handler;
 extern fz_document_handler cbz_document_handler;
 extern fz_document_handler img_document_handler;
 extern fz_document_handler tiff_document_handler;
 extern fz_document_handler html_document_handler;
 extern fz_document_handler epub_document_handler;
+extern fz_document_handler gprf_document_handler;
 
 void fz_register_document_handler(fz_context *ctx, const fz_document_handler *handler);
 
 void fz_register_document_handlers(fz_context *ctx);
-void fz_register_no_run_document_handlers(fz_context *ctx);
 
 /*
 	fz_open_document: Open a PDF, XPS or CBZ document.
@@ -123,7 +148,16 @@ fz_document *fz_open_document_with_stream(fz_context *ctx, const char *magic, fz
 /*
 	fz_new_document: Create and initialize a document struct.
 */
-void *fz_new_document(fz_context *ctx, int size);
+void *fz_new_document_of_size(fz_context *ctx, int size);
+
+#define fz_new_document(C,M) ((M*)Memento_label(fz_new_document_of_size(C, sizeof(M)), #M))
+
+/*
+	fz_keep_document: Keep a reference to an open document.
+
+	Does not throw exceptions.
+*/
+fz_document *fz_keep_document(fz_context *ctx, fz_document *doc);
 
 /*
 	fz_drop_document: Release an open document.
@@ -135,8 +169,6 @@ void *fz_new_document(fz_context *ctx, int size);
 	Does not throw exceptions.
 */
 void fz_drop_document(fz_context *ctx, fz_document *doc);
-
-fz_document *fz_keep_document(fz_context *ctx, fz_document *doc);
 
 /*
 	fz_needs_password: Check if a document is encrypted with a
@@ -164,6 +196,13 @@ int fz_authenticate_password(fz_context *ctx, fz_document *doc, const char *pass
 	Should be freed by fz_drop_outline.
 */
 fz_outline *fz_load_outline(fz_context *ctx, fz_document *doc);
+
+/*
+	fz_is_document_reflowable: Is the document reflowable.
+
+	Returns 1 to indicate reflowable documents, otherwise 0.
+*/
+int fz_is_document_reflowable(fz_context *ctx, fz_document *doc);
 
 /*
 	fz_layout_document: Layout reflowable document types.
@@ -279,7 +318,14 @@ void fz_run_page_contents(fz_context *ctx, fz_page *page, fz_device *dev, const 
 	fields inside cookie are continually updated while the page is
 	rendering.
 */
-void fz_run_annot(fz_context *ctx, fz_page *page, fz_annot *annot, fz_device *dev, const fz_matrix *transform, fz_cookie *cookie);
+void fz_run_annot(fz_context *ctx, fz_annot *annot, fz_device *dev, const fz_matrix *transform, fz_cookie *cookie);
+
+/*
+	fz_keep_page: Keep a reference to a loaded page.
+
+	Does not throw exceptions.
+*/
+fz_page *fz_keep_page(fz_context *ctx, fz_page *page);
 
 /*
 	fz_drop_page: Free a loaded page.
@@ -289,16 +335,108 @@ void fz_run_annot(fz_context *ctx, fz_page *page, fz_annot *annot, fz_device *de
 void fz_drop_page(fz_context *ctx, fz_page *page);
 
 /*
+	fz_new_annot: Create and initialize an annotation struct.
+*/
+void *fz_new_annot(fz_context *ctx, int size);
+
+/*
 	fz_page_presentation: Get the presentation details for a given page.
 
-	duration: NULL, or a pointer to a place to set the page duration in
-	seconds. (Will be set to 0 if unspecified).
+	transition: A pointer to a transition struct to fill out.
 
-	Returns: a pointer to a transition structure, or NULL if there isn't
-	one.
+	duration: A pointer to a place to set the page duration in seconds.
+	Will be set to 0 if no transition is specified for the page.
 
-	Does not throw exceptions.
+	Returns: a pointer to a the transition structure, or NULL if there is no
+	transition specified for the page.
 */
-fz_transition *fz_page_presentation(fz_context *ctx, fz_page *page, float *duration);
+fz_transition *fz_page_presentation(fz_context *ctx, fz_page *page, fz_transition *transition, float *duration);
+
+/*
+	fz_has_permission: Check permission flags on document.
+*/
+int fz_has_permission(fz_context *ctx, fz_document *doc, fz_permission p);
+
+/*
+	fz_lookup_metadata: Retrieve document meta data strings.
+
+	doc: The document to query.
+
+	key: Which meta data key to retrieve...
+
+	Basic information:
+		'format'	-- Document format and version.
+		'encryption'	-- Description of the encryption used.
+
+	From the document information dictionary:
+		'info:Title'
+		'info:Author'
+		'info:Subject'
+		'info:Keywords'
+		'info:Creator'
+		'info:Producer'
+		'info:CreationDate'
+		'info:ModDate'
+
+	buf: The buffer to hold the results (a nul-terminated UTF-8 string).
+
+	size: Size of 'buf'.
+
+	Returns the size of the output string (may be larger than 'size' if
+	the output was truncated), or -1 if the key is not recognized or found.
+*/
+int fz_lookup_metadata(fz_context *ctx, fz_document *doc, const char *key, char *buf, int size);
+
+#define FZ_META_FORMAT "format"
+#define FZ_META_ENCRYPTION "encryption"
+
+#define FZ_META_INFO_AUTHOR "info:Author"
+#define FZ_META_INFO_TITLE "info:Title"
+
+/*
+	Get the number of separations on a page (including CMYK). This will
+	be 0, unless the format specifically supports separations (such as
+	gproof files).
+*/
+int fz_count_separations_on_page(fz_context *ctx, fz_page *page);
+
+/*
+	Enable/Disable a given separation on a given page. This will only
+	affect future renderings of pages from a format that supports
+	separations (such as gproof files).
+*/
+void fz_control_separation_on_page(fz_context *ctx, fz_page *page, int sep, int disable);
+
+/*
+	Returns whether a given separation on a given page is disabled. This will only
+	work from a format that supports separations (such as gproof files).
+ */
+int fz_separation_disabled_on_page (fz_context *ctx, fz_page *, int sep);
+
+/*
+	Get the name and equivalent RGBA, CMYK colors of a given separation
+	on a given page. This will only work for formats that support
+	gproof files.
+*/
+const char *fz_get_separation_on_page(fz_context *ctx, fz_page *page, int sep, uint32_t *rgba, uint32_t *cmyk);
+
+/*
+	fz_save_gproof: Given a currently open document, create a
+	gproof skeleton file from that document.
+
+	doc_filename: The name of the currently opened document file.
+
+	doc: The currently opened document.
+
+	filename: The filename of the desired gproof file.
+
+	res: The resolution at which proofing should be done.
+
+	print_profile: The filename of the ICC profile for the printer we are proofing
+
+	display_profile: The filename of the ICC profile for our display device
+*/
+void fz_save_gproof(fz_context *ctx, const char *doc_filename, fz_document *doc, const char *filename, int res,
+	const char *print_profile, const char *display_profile);
 
 #endif

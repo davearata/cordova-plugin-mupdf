@@ -43,25 +43,25 @@ enum
 
 - (void) openDocument: (NSString*)nspath title:(NSString*)documentTitle options:(NSDictionary*)options
 {
-  _filePath = malloc(strlen([nspath UTF8String])+1);
-  if (_filePath == NULL) {
-    printf("Out of memory in openDocument");
-    return;
-  }
+  // _filePath = malloc(strlen([nspath UTF8String])+1);
+  // if (_filePath == NULL) {
+    // printf("Out of memory in openDocument");
+    // return;
+  // }
 
-  strcpy(_filePath, [nspath UTF8String]);
+  // strcpy(_filePath, [nspath UTF8String]);
 
-  dispatch_sync(queue, ^{});
+  // dispatch_sync(queue, ^{});
 
-  printf("open document '%s'\n", _filePath);
+  // printf("open document '%s'\n", _filePath);
 
-  doc = [[MuDocRef alloc] initWithFilename:_filePath];
+  doc = [[MuDocRef alloc] initWithFilename:nspath];
   if (!doc) {
     printf("Cannot open document");
     return;
   }
 
-  MuDocumentController *document = [[MuDocumentController alloc] initWithFilename: documentTitle path:_filePath document:doc options:options];
+  MuDocumentController *document = [[MuDocumentController alloc] initWithFilename: documentTitle path:nspath document:doc options:options];
   if (document) {
     UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:document];
     [[NSNotificationCenter defaultCenter] addObserver:self

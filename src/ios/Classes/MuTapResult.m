@@ -4,7 +4,6 @@
 -(void) switchCaseInternal:(void (^)(MuTapResultInternalLink *))internalLinkBlock caseExternal:(void (^)(MuTapResultExternalLink *))externalLinkBlock caseRemote:(void (^)(MuTapResultRemoteLink *))remoteLinkBlock caseWidget:(void (^)(MuTapResultWidget *))widgetBlock caseAnnotation:(void (^)(MuTapResultAnnotation *))annotationBlock {}
 @end
 
-
 @implementation MuTapResultInternalLink
 {
 	int pageNumber;
@@ -12,7 +11,7 @@
 
 @synthesize pageNumber;
 
--(id) initWithPageNumber:(int)aNumber
+-(instancetype) initWithPageNumber:(int)aNumber
 {
 	self = [super init];
 	if (self)
@@ -29,7 +28,6 @@
 
 @end
 
-
 @implementation MuTapResultExternalLink
 {
 	NSString *url;
@@ -37,7 +35,7 @@
 
 @synthesize url;
 
--(id) initWithUrl:(NSString *)aString
+-(instancetype) initWithUrl:(NSString *)aString
 {
 	self = [super init];
 	if (self)
@@ -60,7 +58,6 @@
 
 @end
 
-
 @implementation MuTapResultRemoteLink
 {
 	NSString *fileSpec;
@@ -70,7 +67,7 @@
 
 @synthesize fileSpec, pageNumber, newWindow;
 
--(id) initWithFileSpec:(NSString *)aString pageNumber:(int)aNumber newWindow:(BOOL)aBool
+-(instancetype) initWithFileSpec:(NSString *)aString pageNumber:(int)aNumber newWindow:(BOOL)aBool
 {
 	self = [super init];
 	if (self)
@@ -95,7 +92,6 @@
 
 @end
 
-
 @implementation MuTapResultWidget
 
 -(void) switchCaseInternal:(void (^)(MuTapResultInternalLink *))internalLinkBlock caseExternal:(void (^)(MuTapResultExternalLink *))externalLinkBlock caseRemote:(void (^)(MuTapResultRemoteLink *))remoteLinkBlock caseWidget:(void (^)(MuTapResultWidget *))widgetBlock caseAnnotation:(void (^)(MuTapResultAnnotation *))annotationBlock
@@ -105,7 +101,6 @@
 
 @end
 
-
 @implementation MuTapResultAnnotation
 {
 	MuAnnotation *annot;
@@ -113,7 +108,7 @@
 
 @synthesize annot;
 
--(id) initWithAnnotation:(MuAnnotation *)aAnnot
+-(instancetype) initWithAnnotation:(MuAnnotation *)aAnnot
 {
 	self = [super init];
 	if (self)
