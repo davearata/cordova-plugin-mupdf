@@ -1,0 +1,22 @@
+{
+  "name": "cordova-plugin-mupdf",
+  "version": "1.0.0",
+  "description": "A Cordova plugin for the Android & iOS platform to open a muPdf activity",
+  "cordova": {
+    "id": "cordova-plugin-mupdf",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davearata/cordova-plugin-mupdf.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/davearata/cordova-plugin-mupdf/issues"
+  },
+  "homepage": "https://github.com/davearata/cordova-plugin-mupdf#readme"
+}
