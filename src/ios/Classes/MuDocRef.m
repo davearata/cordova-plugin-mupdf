@@ -15,7 +15,7 @@
 
 		fz_try(ctx)
 		{
-			doc = fz_open_document(ctx, aFilename);
+			doc = fz_open_document(ctx, aFilename.UTF8String);
 			if (!doc)
 			{
 				[self release];
