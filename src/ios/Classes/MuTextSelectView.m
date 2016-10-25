@@ -11,7 +11,7 @@
 	CGPoint end;
 }
 
-- (instancetype) initWithWords:(NSArray *)_words pageSize:(CGSize)_pageSize
+- (id) initWithWords:(NSArray *)_words pageSize:(CGSize)_pageSize
 {
 	self = [super initWithFrame:CGRectMake(0,0,100,100)];
 	if (self)

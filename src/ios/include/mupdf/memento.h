@@ -161,11 +161,12 @@
 
 #ifndef MEMENTO_H
 
-#include <stdlib.h>
+#include <memory.h>
 
 #ifdef __ANDROID__
 #define MEMENTO_ANDROID
 #include <stdio.h>
+#include <stdlib.h>
 #endif
 
 #define MEMENTO_H
@@ -220,15 +221,13 @@ void  Memento_free(void *);
 void *Memento_calloc(size_t, size_t);
 
 void Memento_info(void *addr);
-void Memento_listBlockInfo(void);
+void Memento_listBLockInfo(void);
 void *Memento_takeRef(void *blk);
 void *Memento_dropRef(void *blk);
 void *Memento_reference(void *blk);
 
 void Memento_startLeaking(void);
 void Memento_stopLeaking(void);
-
-void Memento_fin(void);
 
 #ifdef MEMENTO
 
@@ -271,7 +270,6 @@ void Memento_fin(void);
 #define Memento_reference(A)      (A)
 #define Memento_startLeaking()    do {} while (0)
 #define Memento_stopLeaking()     do {} while (0)
-#define Memento_fin()             do {} while (0)
 
 #endif /* MEMENTO */
 

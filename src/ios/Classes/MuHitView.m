@@ -11,7 +11,7 @@
 	UIColor *color;
 }
 
-- (instancetype) initWithSearchResults: (int)n forDocument: (fz_document *)doc
+- (id) initWithSearchResults: (int)n forDocument: (fz_document *)doc
 {
 	self = [super initWithFrame: CGRectMake(0,0,100,100)];
 	if (self) {
@@ -33,7 +33,7 @@
 	return self;
 }
 
-- (instancetype) initWithLinks: (fz_link*)link forDocument: (fz_document *)doc
+- (id) initWithLinks: (fz_link*)link forDocument: (fz_document *)doc
 {
 	self = [super initWithFrame: CGRectMake(0,0,100,100)];
 	if (self) {
@@ -83,7 +83,7 @@
 			}
 			if (linkUrl[i])
 			{
-				NSString *url = @(linkUrl[i]);
+				NSString *url = [NSString stringWithUTF8String:linkUrl[i]];
 				return [[[MuTapResultExternalLink alloc] initWithUrl:url] autorelease];
 			}
 		}

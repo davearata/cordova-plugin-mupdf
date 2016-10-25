@@ -11,21 +11,17 @@
   <repo>https://github.com/davearata/cordova-plugin-mupdf.git</repo>
   <issue></issue>
 
-  <engines>
-    <engine name="cordova-android" version=">=3.1.0" />
-  </engines>
+  <js-module src="www/mupdf.js">
+    <clobbers target="window.pdf" />
+  </js-module>
 
-  <!-- android -->
+  <!-- iOS -->
   <platform name="ios">
     <config-file target="config.xml" parent="/*">
       <feature name="MuPdfPlugin">
           <param name="ios-package" value="MuPdfPlugin" />
       </feature>
     </config-file>
-
-    <js-module src="www/mupdf.js">
-      <clobbers target="window.pdf" />
-    </js-module>
 
     <framework src="libz.dylib" />
 
@@ -43,17 +39,14 @@
     <header-file src="src/ios/include/mupdf/memento.h"/>
     <header-file src="src/ios/include/mupdf/pdf-tools.h"/>
     <header-file src="src/ios/include/mupdf/pdf.h"/>
-    <header-file src="src/ios/include/mupdf/svg.h"/>
     <header-file src="src/ios/include/mupdf/xps.h"/>
 
     <header-file src="src/ios/include/mupdf/fitz/annotation.h" />
-    <header-file src="src/ios/include/mupdf/fitz/archive.h" />
     <header-file src="src/ios/include/mupdf/fitz/bidi.h" />
     <header-file src="src/ios/include/mupdf/fitz/bitmap.h" />
     <header-file src="src/ios/include/mupdf/fitz/buffer.h" />
     <header-file src="src/ios/include/mupdf/fitz/colorspace.h" />
     <header-file src="src/ios/include/mupdf/fitz/compressed-buffer.h" />
-    <header-file src="src/ios/include/mupdf/fitz/config.h" />
     <header-file src="src/ios/include/mupdf/fitz/context.h" />
     <header-file src="src/ios/include/mupdf/fitz/crypt.h" />
     <header-file src="src/ios/include/mupdf/fitz/device.h" />
@@ -89,24 +82,20 @@
     <header-file src="src/ios/include/mupdf/fitz/structured-text.h" />
     <header-file src="src/ios/include/mupdf/fitz/system.h" />
     <header-file src="src/ios/include/mupdf/fitz/text.h" />
-    <header-file src="src/ios/include/mupdf/fitz/track-usage.h" />
     <header-file src="src/ios/include/mupdf/fitz/transition.h" />
     <header-file src="src/ios/include/mupdf/fitz/tree.h" />
     <header-file src="src/ios/include/mupdf/fitz/ucdn.h" />
+    <header-file src="src/ios/include/mupdf/fitz/unzip.h" />
     <header-file src="src/ios/include/mupdf/fitz/util.h" />
     <header-file src="src/ios/include/mupdf/fitz/version.h" />
-    <header-file src="src/ios/include/mupdf/fitz/writer.h" />
     <header-file src="src/ios/include/mupdf/fitz/xml.h" />
 
     <header-file src="src/ios/include/mupdf/pdf/annot.h" />
     <header-file src="src/ios/include/mupdf/pdf/appearance.h" />
     <header-file src="src/ios/include/mupdf/pdf/clean.h" />
     <header-file src="src/ios/include/mupdf/pdf/cmap.h" />
-    <header-file src="src/ios/include/mupdf/pdf/pdf-crypt.h" />
-    <header-file src="src/ios/include/mupdf/pdf/pdf-document.h" />
     <header-file src="src/ios/include/mupdf/pdf/event.h" />
     <header-file src="src/ios/include/mupdf/pdf/field.h" />
-    <header-file src="src/ios/include/mupdf/pdf/pdf-font.h" />
     <header-file src="src/ios/include/mupdf/pdf/interpret.h" />
     <header-file src="src/ios/include/mupdf/pdf/javascript.h" />
     <header-file src="src/ios/include/mupdf/pdf/name-table.h" />
@@ -114,6 +103,9 @@
     <header-file src="src/ios/include/mupdf/pdf/output-pdf.h" />
     <header-file src="src/ios/include/mupdf/pdf/page.h" />
     <header-file src="src/ios/include/mupdf/pdf/parse.h" />
+    <header-file src="src/ios/include/mupdf/pdf/pdf-crypt.h" />
+    <header-file src="src/ios/include/mupdf/pdf/pdf-document.h" />
+    <header-file src="src/ios/include/mupdf/pdf/pdf-font.h" />
     <header-file src="src/ios/include/mupdf/pdf/resource.h" />
     <header-file src="src/ios/include/mupdf/pdf/widget.h" />
     <header-file src="src/ios/include/mupdf/pdf/xref.h" />
@@ -196,10 +188,6 @@
 
   <!-- android -->
   <platform name="android">
-    <js-module src="www/mupdf.js">
-      <clobbers target="window.pdf" />
-    </js-module>
-
     <framework src="libs/mupdf/mupdf.gradle" custom="true" type="gradleReference" />
 
     <config-file target="config.xml" parent="/*">

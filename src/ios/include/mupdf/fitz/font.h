@@ -30,23 +30,21 @@ struct fz_font_s
 	char name[32];
 	fz_buffer *buffer;
 
-	unsigned int is_mono : 1;
-	unsigned int is_serif : 1;
-	unsigned int is_bold : 1;
-	unsigned int is_italic : 1;
-	unsigned int ft_substitute : 1; /* use substitute metrics */
-	unsigned int ft_stretch : 1; /* stretch to match PDF metrics */
-
-	unsigned int fake_bold : 1; /* synthesize bold */
-	unsigned int fake_italic : 1; /* synthesize italic */
-	unsigned int force_hinting : 1; /* force hinting for DynaLab fonts */
-	unsigned int has_opentype : 1; /* has opentype shaping tables */
-	unsigned int invalid_bbox : 1;
-	unsigned int use_glyph_bbox : 1;
+	char is_mono;
+	char is_serif;
+	char is_bold;
+	char is_italic;
 
 	void *ft_face; /* has an FT_Face if used */
 	void *hb_font; /* hb_font for shaping */
-	void (*hb_destroy)(void *); /* Destructor for hb_font */
+	int ft_substitute; /* ... substitute metrics */
+	int ft_stretch; /* ... and stretch to match PDF metrics */
+
+
+	int fake_bold; /* ... synthesize bold */
+	int fake_italic; /* ... synthesize italic */
+	int force_hinting; /* ... force hinting for DynaLab fonts */
+	int has_opentype; /* ... has opentype shaping tables */
 
 	fz_matrix t3matrix;
 	void *t3resources;
@@ -63,6 +61,7 @@ struct fz_font_s
 	int glyph_count;
 
 	/* per glyph bounding box cache */
+	int use_glyph_bbox;
 	fz_rect *bbox_table;
 
 	/* substitute metrics */
@@ -94,11 +93,11 @@ fz_font *fz_load_system_cjk_font(fz_context *ctx, const char *name, int ros, int
 const char *fz_lookup_builtin_font(fz_context *ctx, const char *name, int is_bold, int is_italic, int *size);
 const char *fz_lookup_base14_font(fz_context *ctx, const char *name, int *len);
 const char *fz_lookup_cjk_font(fz_context *ctx, int registry, int serif, int wmode, int *len, int *index);
-const char *fz_lookup_noto_font(fz_context *ctx, int script, int lang, int serif, int *len);
+const char *fz_lookup_noto_font(fz_context *ctx, int script, int serif, int *len);
 const char *fz_lookup_noto_symbol_font(fz_context *ctx, int *len);
 const char *fz_lookup_noto_emoji_font(fz_context *ctx, int *len);
 
-fz_font *fz_load_fallback_font(fz_context *ctx, int script, int language, int serif, int bold, int italic);
+fz_font *fz_load_fallback_font(fz_context *ctx, int script, int serif, int bold, int italic);
 fz_font *fz_load_fallback_symbol_font(fz_context *ctx);
 fz_font *fz_load_fallback_emoji_font(fz_context *ctx);
 
@@ -121,7 +120,7 @@ void fz_decouple_type3_font(fz_context *ctx, fz_font *font, void *t3doc);
 
 float fz_advance_glyph(fz_context *ctx, fz_font *font, int glyph, int wmode);
 int fz_encode_character(fz_context *ctx, fz_font *font, int unicode);
-int fz_encode_character_with_fallback(fz_context *ctx, fz_font *font, int unicode, int script, int language, fz_font **out_font);
+int fz_encode_character_with_fallback(fz_context *ctx, fz_font *font, int unicode, int script, fz_font **out_font);
 void fz_get_glyph_name(fz_context *ctx, fz_font *font, int glyph, char *buf, int size);
 
 void fz_print_font(fz_context *ctx, fz_output *out, fz_font *font);

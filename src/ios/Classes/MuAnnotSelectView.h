@@ -2,5 +2,5 @@
 #import "MuAnnotation.h"
 
 @interface MuAnnotSelectView : UIView
-- (instancetype) initWithAnnot:(MuAnnotation *)_annot pageSize:(CGSize)_pageSize;
+- (id) initWithAnnot:(MuAnnotation *)_annot pageSize:(CGSize)_pageSize;
 @end

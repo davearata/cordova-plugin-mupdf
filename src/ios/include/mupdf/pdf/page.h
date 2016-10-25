@@ -14,14 +14,6 @@ pdf_obj *pdf_lookup_page_obj(fz_context *ctx, pdf_document *doc, int needle);
 int pdf_lookup_anchor(fz_context *ctx, pdf_document *doc, const char *name);
 
 /*
-	pdf_flatten_inheritable_page_items: Make page self sufficient.
-
-	Copy any inheritable page keys into the actual page object, removing
-	any dependencies on the page tree parents.
-*/
-void pdf_flatten_inheritable_page_items(fz_context *ctx, pdf_obj *page);
-
-/*
 	pdf_load_page: Load a page and its resources.
 
 	Locates the page in the PDF document and loads the page and its
@@ -32,11 +24,8 @@ void pdf_flatten_inheritable_page_items(fz_context *ctx, pdf_obj *page);
 	number: page number, where 0 is the first page of the document.
 */
 pdf_page *pdf_load_page(fz_context *ctx, pdf_document *doc, int number);
-void pdf_drop_page(fz_context *ctx, pdf_page *page);
 
-void pdf_page_transform(fz_context *ctx, pdf_page *page, fz_rect *mediabox, fz_matrix *ctm);
-pdf_obj *pdf_page_resources(fz_context *ctx, pdf_page *page);
-pdf_obj *pdf_page_contents(fz_context *ctx, pdf_page *page);
+void pdf_drop_page(fz_context *ctx, pdf_page *page);
 
 fz_link *pdf_load_links(fz_context *ctx, pdf_page *page);
 
@@ -133,36 +122,9 @@ void pdf_clean_page_contents(fz_context *ctx, pdf_document *doc, pdf_page *page,
 	pdf_page_contents_process_fn *proc, void *proc_arg, int ascii);
 
 /*
-	pdf_clean_annot_contents: Clean a loaded annotations rendering operations,
-	with an optional post processing step.
-
-	Each appearance stream in the annotation is processed.
-
-	Firstly, this filters the PDF operators used to avoid (some cases
-	of) repetition, and leaves the page in a balanced state with an
-	unchanged top level matrix etc. At the same time, the resources
-	used by the page contents are collected.
-
-	Next, the resources themselves are cleaned (as appropriate) in the
-	same way.
-
-	Next, an optional post processing stage is called.
-
-	Finally, the updated stream of operations is reinserted into the
-	appearance stream.
-
-	annot: An annotation loaded by pdf_load_annot.
-
-	cookie: A pointer to an optional fz_cookie structure that can be used
-	to track progress, collect errors etc.
-*/
-void pdf_clean_annot_contents(fz_context *ctx, pdf_document *doc, pdf_annot *annot, fz_cookie *cookie,
-	pdf_page_contents_process_fn *proc, void *proc_arg, int ascii);
-
-/*
 	Presentation interface.
 */
-fz_transition *pdf_page_presentation(fz_context *ctx, pdf_page *page, fz_transition *transition, float *duration);
+fz_transition *pdf_page_presentation(fz_context *ctx, pdf_page *page, float *duration);
 
 /*
  * Page tree, pages and related objects
@@ -172,17 +134,23 @@ struct pdf_page_s
 {
 	fz_page super;
 	pdf_document *doc;
-	pdf_obj *obj;
 
+	fz_matrix ctm; /* calculated from mediabox and rotate */
+	fz_rect mediabox;
+	int rotate;
 	int transparency;
-
+	pdf_obj *resources;
+	pdf_obj *contents;
 	fz_link *links;
 	pdf_annot *annots;
 	pdf_annot **annot_tailp;
 	pdf_annot *changed_annots;
 	pdf_annot *deleted_annots;
 	pdf_annot *tmp_annots;
-
+	pdf_obj *me;
+	float duration;
+	int transition_present;
+	fz_transition transition;
 	int incomplete;
 };
 

@@ -17,19 +17,19 @@
 
 @interface MuTapResultInternalLink : MuTapResult
 @property(readonly) int pageNumber;
--(instancetype)initWithPageNumber:(int)aNumber;
+-(id)initWithPageNumber:(int)aNumber;
 @end
 
 @interface MuTapResultExternalLink : MuTapResult
 @property(readonly) NSString *url;
--(instancetype)initWithUrl:(NSString *)aString;
+-(id)initWithUrl:(NSString *)aString;
 @end
 
 @interface MuTapResultRemoteLink : MuTapResult
 @property(readonly) NSString *fileSpec;
 @property(readonly) int pageNumber;
 @property(readonly) BOOL newWindow;
--(instancetype)initWithFileSpec:(NSString *)aString pageNumber:(int)aNumber newWindow:(BOOL)aBool;
+-(id)initWithFileSpec:(NSString *)aString pageNumber:(int)aNumber newWindow:(BOOL)aBool;
 @end
 
 @interface MuTapResultWidget : MuTapResult
@@ -37,5 +37,5 @@
 
 @interface MuTapResultAnnotation : MuTapResult
 @property(readonly) MuAnnotation *annot;
--(instancetype)initWithAnnotation:(MuAnnotation *)aAnnot;
+-(id)initWithAnnotation:(MuAnnotation *)aAnnot;
 @end

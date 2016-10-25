@@ -2,7 +2,7 @@
 #import "MuTapResult.h"
 
 @protocol MuPageView
-@property (NS_NONATOMIC_IOSONLY, readonly) int number;
+-(int) number;
 -(void) willRotate;
 -(void) showLinks;
 -(void) hideLinks;

@@ -3,5 +3,5 @@
 @class MuDocumentController;
 
 @interface MuOutlineController : UITableViewController
-- (instancetype) initWithTarget: (id)aTarget titles: (NSMutableArray*)aTitles pages: (NSMutableArray*)aPages;
+- (id) initWithTarget: (id)aTarget titles: (NSMutableArray*)aTitles pages: (NSMutableArray*)aPages;
 @end

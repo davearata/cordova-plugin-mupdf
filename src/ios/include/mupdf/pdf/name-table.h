@@ -157,8 +157,6 @@ enum
 	PDF_OBJ_ENUM_NAME_Count,
 #define PDF_NAME_Cover  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_Cover)
 	PDF_OBJ_ENUM_NAME_Cover,
-#define PDF_NAME_CreationDate  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_CreationDate)
-	PDF_OBJ_ENUM_NAME_CreationDate,
 #define PDF_NAME_Creator  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_Creator)
 	PDF_OBJ_ENUM_NAME_Creator,
 #define PDF_NAME_CropBox  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_CropBox)
@@ -345,8 +343,6 @@ enum
 	PDF_OBJ_ENUM_NAME_ID,
 #define PDF_NAME_IM  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_IM)
 	PDF_OBJ_ENUM_NAME_IM,
-#define PDF_NAME_IRT  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_IRT)
-	PDF_OBJ_ENUM_NAME_IRT,
 #define PDF_NAME_Identity  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_Identity)
 	PDF_OBJ_ENUM_NAME_Identity,
 #define PDF_NAME_Identity_H  ((pdf_obj *)(intptr_t)PDF_OBJ_ENUM_NAME_Identity_H)

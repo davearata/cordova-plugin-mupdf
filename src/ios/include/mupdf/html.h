@@ -110,7 +110,6 @@ enum { TA_LEFT, TA_RIGHT, TA_CENTER, TA_JUSTIFY };
 enum { VA_BASELINE, VA_SUB, VA_SUPER, VA_TOP, VA_BOTTOM, VA_TEXT_TOP, VA_TEXT_BOTTOM };
 enum { BS_NONE, BS_SOLID };
 enum { V_VISIBLE, V_HIDDEN, V_COLLAPSE };
-enum { PB_AUTO, PB_ALWAYS, PB_AVOID, PB_LEFT, PB_RIGHT };
 
 enum {
 	WS_COLLAPSE = 1,
@@ -161,8 +160,6 @@ struct fz_css_style_s
 	char vertical_align;
 	char list_style_type;
 	char border_style[4];
-	char page_break_before;
-	char page_break_after;
 	fz_css_number line_height;
 	fz_css_color background_color;
 	fz_css_color border_color[4];
@@ -219,11 +216,11 @@ struct fz_html_flow_s
 	/* Direction setting for text - UAX#9 says 125 is the max */
 	unsigned int bidi_level : 7;
 
+	/* Whether the markup specifies a given language. */
+	unsigned int markup_lang : 8;
+
 	/* The script detected by the bidi code. */
 	unsigned int script : 8;
-
-	/* Whether the markup specifies a given language. */
-	unsigned int markup_lang : 15;
 
 	float x, y, w, h;
 	fz_html *box; /* for style and em */

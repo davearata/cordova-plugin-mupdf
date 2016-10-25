@@ -17,16 +17,16 @@ enum { FZ_MAX_COLORS = 32 };
 typedef struct fz_colorspace_s fz_colorspace;
 
 /*
+	fz_lookup_device_colorspace: Find a standard colorspace based upon
+	it's name.
+*/
+fz_colorspace *fz_lookup_device_colorspace(fz_context *ctx, char *name);
+
+/*
 	fz_colorspace_is_indexed: Return true, iff a given colorspace is
 	indexed.
 */
 int fz_colorspace_is_indexed(fz_context *ctx, fz_colorspace *cs);
-
-/*
-	fz_colorspace_is_lab: Return true, iff a given colorspace is
-	lab.
-*/
-int fz_colorspace_is_lab(fz_context *ctx, fz_colorspace *cs);
 
 /*
 	fz_device_gray: Get colorspace representing device specific gray.
@@ -47,11 +47,6 @@ fz_colorspace *fz_device_bgr(fz_context *ctx);
 	fz_device_cmyk: Get colorspace representing device specific CMYK.
 */
 fz_colorspace *fz_device_cmyk(fz_context *ctx);
-
-/*
-	fz_device_lab: Get colorspace representing device specific LAB.
-*/
-fz_colorspace *fz_device_lab(fz_context *ctx);
 
 /*
 	fz_set_device_gray: Set colorspace representing device specific gray.
@@ -76,7 +71,7 @@ void fz_set_device_cmyk(fz_context *ctx, fz_colorspace *cs);
 struct fz_colorspace_s
 {
 	fz_storable storable;
-	size_t size;
+	unsigned int size;
 	char name[16];
 	int n;
 	void (*to_rgb)(fz_context *ctx, fz_colorspace *, const float *src, float *rgb);

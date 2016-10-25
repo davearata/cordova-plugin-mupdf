@@ -8,7 +8,7 @@
 
 @synthesize type, rect;
 
--(instancetype) initFromAnnot:(fz_annot *)annot;
+-(id) initFromAnnot:(fz_annot *)annot;
 {
 	self = [super init];
 	if (self)

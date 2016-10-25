@@ -102,11 +102,12 @@ void fz_write_bitmap_as_pcl(fz_context *ctx, fz_output *out, const fz_bitmap *bi
 
 void fz_save_bitmap_as_pcl(fz_context *ctx, fz_bitmap *bitmap, char *filename, int append, const fz_pcl_options *pcl);
 
+
 typedef struct fz_color_pcl_output_context_s fz_color_pcl_output_context;
 
 fz_color_pcl_output_context *fz_write_color_pcl_header(fz_context *ctx, fz_output *out, int w, int h, int n, int xres, int yres, int pagenum, const fz_pcl_options *options);
 
-void fz_write_color_pcl_band(fz_context *ctx, fz_output *out, fz_color_pcl_output_context *poc, int w, int h, int n, int stride, int band_start, int bandheight, unsigned char *samples);
+void fz_write_color_pcl_band(fz_context *ctx, fz_output *out, fz_color_pcl_output_context *poc, int w, int h, int n, int band, int bandheight, unsigned char *samples);
 
 void fz_write_color_pcl_trailer(fz_context *ctx, fz_output *out, fz_color_pcl_output_context *pcoc);
 

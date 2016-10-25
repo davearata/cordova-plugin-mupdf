@@ -15,7 +15,7 @@ typedef struct fz_output_s fz_output;
 struct fz_output_s
 {
 	void *opaque;
-	void (*write)(fz_context *, void *opaque, const void *, size_t n);
+	void (*write)(fz_context *, void *opaque, const void *, int n);
 	void (*seek)(fz_context *, void *opaque, fz_off_t off, int whence);
 	fz_off_t (*tell)(fz_context *, void *opaque);
 	void (*close)(fz_context *, void *opaque);
@@ -29,17 +29,6 @@ struct fz_output_s
 fz_output *fz_new_output_with_file_ptr(fz_context *, FILE *, int close);
 fz_output *fz_new_output_with_path(fz_context *, const char *filename, int append);
 fz_output *fz_new_output_with_buffer(fz_context *, fz_buffer *);
-
-/*
-	fz_stdout: The standard out output stream.
-	fz_stderr: The standard error output stream.
-	fz_set_stdout: Replace default standard output stream with a new stream.
-	fz_set_stderr: Replace default standard error stream with a new stream.
-*/
-fz_output *fz_stdout(fz_context *);
-fz_output *fz_stderr(fz_context *);
-void fz_set_stdout(fz_context *ctx, fz_output *out);
-void fz_set_stderr(fz_context *ctx, fz_output *err);
 
 /*
 	fz_write: fwrite equivalent for output streams.
@@ -71,7 +60,7 @@ void fz_drop_output(fz_context *, fz_output *);
 	fz_write: Write data to output.
 */
 
-static inline void fz_write(fz_context *ctx, fz_output *out, const void *data, size_t size)
+static inline void fz_write(fz_context *ctx, fz_output *out, const void *data, int size)
 {
 	if (out)
 		out->write(ctx, out->opaque, data, size);
@@ -84,7 +73,7 @@ static inline void fz_write(fz_context *ctx, fz_output *out, const void *data, s
 	fz_write_rune: Write a UTF-8 encoded unicode character.
 */
 
-static inline void fz_write_int32_be(fz_context *ctx, fz_output *out, int x)
+static inline void fz_write_int32be(fz_context *ctx, fz_output *out, int x)
 {
 	char data[4];
 
@@ -96,7 +85,7 @@ static inline void fz_write_int32_be(fz_context *ctx, fz_output *out, int x)
 	fz_write(ctx, out, data, 4);
 }
 
-static inline void fz_write_int32_le(fz_context *ctx, fz_output *out, int x)
+static inline void fz_write_int32le(fz_context *ctx, fz_output *out, int x)
 {
 	char data[4];
 
@@ -106,16 +95,6 @@ static inline void fz_write_int32_le(fz_context *ctx, fz_output *out, int x)
 	data[3] = x>>24;
 
 	fz_write(ctx, out, data, 4);
-}
-
-static inline void fz_write_int16_le(fz_context *ctx, fz_output *out, int x)
-{
-	char data[2];
-
-	data[0] = x;
-	data[1] = x>>8;
-
-	fz_write(ctx, out, data, 2);
 }
 
 static inline void fz_write_byte(fz_context *ctx, fz_output *out, unsigned char x)
@@ -141,8 +120,8 @@ static inline void fz_write_rune(fz_context *ctx, fz_output *out, int rune)
 	%z{d,u,x} indicates that the value is a size_t.
 	%Z{d,u,x} indicates that the value is a fz_off_t.
 */
-size_t fz_vsnprintf(char *buffer, size_t space, const char *fmt, va_list args);
-size_t fz_snprintf(char *buffer, size_t space, const char *fmt, ...);
+int fz_vsnprintf(char *buffer, int space, const char *fmt, va_list args);
+int fz_snprintf(char *buffer, int space, const char *fmt, ...);
 
 /*
 	fz_tempfilename: Get a temporary filename based upon 'base'.
@@ -159,9 +138,5 @@ char *fz_tempfilename(fz_context *ctx, const char *base, const char *hint);
 	fz_save_buffer: Save contents of a buffer to file.
 */
 void fz_save_buffer(fz_context *ctx, fz_buffer *buf, const char *filename);
-
-void fz_new_output_context(fz_context *ctx);
-void fz_drop_output_context(fz_context *ctx);
-fz_output_context *fz_keep_output_context(fz_context *ctx);
 
 #endif

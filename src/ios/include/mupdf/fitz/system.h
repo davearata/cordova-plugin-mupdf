@@ -31,7 +31,6 @@
 #include <setjmp.h>
 
 #include "memento.h"
-#include "track-usage.h"
 
 #define nelem(x) (sizeof(x)/sizeof((x)[0]))
 
@@ -41,16 +40,6 @@
 
 #ifndef M_SQRT2
 #define M_SQRT2 1.41421356237309504880
-#endif
-
-/*
-	Spot architectures where we have optimisations.
-*/
-
-#if defined(__arm__) || defined(__thumb__)
-#ifndef ARCH_ARM
-#define ARCH_ARM
-#endif
 #endif
 
 /*
@@ -144,7 +133,7 @@ static int msvc_snprintf(char *str, size_t size, const char *fmt, ...)
 }
 #endif
 
-#if _MSC_VER <= 1700 /* MSVC 2012 */
+#if _MSC_VER < 1700 /* MSVC 2012 */
 #define isnan(x) _isnan(x)
 #define isinf(x) (!_finite(x))
 #endif
@@ -166,15 +155,10 @@ void fz_free_argv(int argc, char **argv);
 #define ftello64 _ftelli64
 #define atoll _atoi64
 
-#include <sys/stat.h>
-
-#define stat _stat
-
 #else /* Unix or close enough */
 
 #include <stdint.h>
 #include <unistd.h>
-#include <sys/stat.h>
 
 #ifndef O_BINARY
 #define O_BINARY 0
@@ -204,24 +188,14 @@ typedef int fz_off_t;
 #define fz_atoo_imp atoi
 #endif
 
-/* Portable way to format a size_t */
-#if defined(_WIN64)
-#define FMT_zu "%Iu"
-#elif defined(_WIN32)
-#define FMT_zu "%u"
-#else
-#define FMT_zu "%zu"
-#endif
-
 #ifdef __ANDROID__
 #include <android/log.h>
-int fz_android_fprintf(FILE *file, const char *fmt, ...);
-#ifdef DEBUG
-/* Capture fprintf for stdout/stderr to the android logging
- * stream. Only do this in debug builds as this implies a
- * delay */
-#define fprintf fz_android_fprintf
-#endif
+#define LOG_TAG "libmupdf"
+#define LOGI(...) __android_log_print(ANDROID_LOG_INFO,LOG_TAG,__VA_ARGS__)
+#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR,LOG_TAG,__VA_ARGS__)
+#else
+#define LOGI(...) do {} while(0)
+#define LOGE(...) do {} while(0)
 #endif
 
 /* inline is standard in C++. For some compilers we can enable it within C too. */

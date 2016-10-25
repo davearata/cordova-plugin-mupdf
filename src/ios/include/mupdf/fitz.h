@@ -6,7 +6,6 @@ extern "C" {
 #endif
 
 #include "version.h"
-#include "config.h"
 #include "system.h"
 #include "context.h"
 
@@ -27,7 +26,7 @@ extern "C" {
 #include "compressed-buffer.h"
 #include "filter.h"
 #include "output.h"
-#include "archive.h"
+#include "unzip.h"
 
 /* Resources */
 #include "store.h"
@@ -59,7 +58,6 @@ extern "C" {
 #include "util.h"
 
 /* Output formats */
-#include "writer.h"
 #include "output-pnm.h"
 #include "output-png.h"
 #include "output-pwg.h"

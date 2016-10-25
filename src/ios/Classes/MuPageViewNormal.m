@@ -72,14 +72,12 @@ static NSArray *enumerateWords(fz_document *doc, fz_page *page)
 
 	fz_try(ctx)
 	{
-		fz_rect mediabox;
 		int b, l, c;
 
 		sheet = fz_new_stext_sheet(ctx);
-		text = fz_new_stext_page(ctx, fz_bound_page(ctx, page, &mediabox));
-		dev = fz_new_stext_device(ctx, sheet, text, 0);
+		text = fz_new_stext_page(ctx);
+		dev = fz_new_stext_device(ctx, sheet, text);
 		fz_run_page(ctx, page, dev, &fz_identity, NULL);
-		fz_close_device(ctx, dev);
 		fz_drop_device(ctx, dev);
 		dev = NULL;
 
@@ -133,11 +131,10 @@ static NSArray *enumerateWords(fz_document *doc, fz_page *page)
 				if (word.string.length > 0)
 					[wds addObject:word];
 
-				if (wds.count > 0)
+				if ([wds count] > 0)
 					[lns addObject:wds];
 			}
 		}
-		fz_close_device(ctx, dev);
 	}
 	fz_always(ctx)
 	{
@@ -206,7 +203,7 @@ static void addMarkupAnnot(fz_document *doc, fz_page *page, int type, NSArray *r
 		quadpts = fz_malloc_array(ctx, (int)rects.count * 4, sizeof(fz_point));
 		for (i = 0; i < rects.count; i++)
 		{
-			CGRect rect = [rects[i] CGRectValue];
+			CGRect rect = [[rects objectAtIndex:i] CGRectValue];
 			float top = rect.origin.y;
 			float bot = top + rect.size.height;
 			float left = rect.origin.x;
@@ -261,7 +258,7 @@ static void addInkAnnot(fz_document *doc, fz_page *page, NSArray *curves)
 
 		for (i = 0; i < n; i++)
 		{
-			NSArray *curve = curves[i];
+			NSArray *curve = [curves objectAtIndex:i];
 			counts[i] = (int)curve.count;
 			total += (int)curve.count;
 		}
@@ -271,12 +268,12 @@ static void addInkAnnot(fz_document *doc, fz_page *page, NSArray *curves)
 		k = 0;
 		for (i = 0; i < n; i++)
 		{
-			NSArray *curve = curves[i];
+			NSArray *curve = [curves objectAtIndex:i];
 			int count = counts[i];
 
 			for (j = 0; j < count; j++)
 			{
-				CGPoint pt = [curve[j] CGPointValue];
+				CGPoint pt = [[curve objectAtIndex:j] CGPointValue];
 				pts[k].x = pt.x;
 				pts[k].y = pt.y;
 				k++;
@@ -380,10 +377,9 @@ static fz_display_list *create_page_list(fz_document *doc, fz_page *page)
 	fz_var(dev);
 	fz_try(ctx)
 	{
-		list = fz_new_display_list(ctx, NULL);
+		list = fz_new_display_list(ctx);
 		dev = fz_new_list_device(ctx, list);
 		fz_run_page_contents(ctx, page, dev, &fz_identity, NULL);
-		fz_close_device(ctx, dev);
 	}
 	fz_always(ctx)
 	{
@@ -410,11 +406,10 @@ static fz_display_list *create_annot_list(fz_document *doc, fz_page *page)
 
 		if (idoc)
 			pdf_update_page(ctx, idoc, (pdf_page *)page);
-		list = fz_new_display_list(ctx, NULL);
+		list = fz_new_display_list(ctx);
 		dev = fz_new_list_device(ctx, list);
 		for (annot = fz_first_annot(ctx, page); annot; annot = fz_next_annot(ctx, annot))
 			fz_run_annot(ctx, annot, dev, &fz_identity, NULL);
-		fz_close_device(ctx, dev);
 	}
 	fz_always(ctx)
 	{
@@ -457,13 +452,12 @@ static fz_pixmap *renderPixmap(fz_document *doc, fz_display_list *page_list, fz_
 	fz_var(pix);
 	fz_try(ctx)
 	{
-		pix = fz_new_pixmap_with_bbox(ctx, fz_device_rgb(ctx), &bbox, 1);
+		pix = fz_new_pixmap_with_bbox(ctx, fz_device_rgb(ctx), &bbox);
 		fz_clear_pixmap_with_value(ctx, pix, 255);
 
-		dev = fz_new_draw_device(ctx, &ctm, pix);
-		fz_run_display_list(ctx, page_list, dev, &fz_identity, &rect, NULL);
-		fz_run_display_list(ctx, annot_list, dev, &fz_identity, &rect, NULL);
-		fz_close_device(ctx, dev);
+		dev = fz_new_draw_device(ctx, pix);
+		fz_run_display_list(ctx, page_list, dev, &ctm, &rect, NULL);
+		fz_run_display_list(ctx, annot_list, dev, &ctm, &rect, NULL);
 	}
 	fz_always(ctx)
 	{
@@ -566,10 +560,9 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 			if (!fz_is_empty_irect(&abox))
 			{
 				fz_clear_pixmap_rect_with_value(ctx, pixmap, 255, &abox);
-				dev = fz_new_draw_device_with_bbox(ctx, &ctm, pixmap, &abox);
-				fz_run_display_list(ctx, page_list, dev, &fz_identity, &arect, NULL);
-				fz_run_display_list(ctx, annot_list, dev, &fz_identity, &arect, NULL);
-				fz_close_device(ctx, dev);
+				dev = fz_new_draw_device_with_bbox(ctx, pixmap, &abox);
+				fz_run_display_list(ctx, page_list, dev, &ctm, &arect, NULL);
+				fz_run_display_list(ctx, annot_list, dev, &ctm, &arect, NULL);
 				fz_drop_device(ctx, dev);
 				dev = NULL;
 			}
@@ -648,7 +641,7 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 		annot_list = create_annot_list(doc, page);
 }
 
--(instancetype) initWithFrame:(CGRect)frame dialogCreator:(id<MuDialogCreator>)dia updater:(id<MuUpdater>)upd document:(MuDocRef *)aDoc page:(int)aNumber
+-(id) initWithFrame:(CGRect)frame dialogCreator:(id<MuDialogCreator>)dia updater:(id<MuUpdater>)upd document:(MuDocRef *)aDoc page:(int)aNumber
 {
 	self = [super initWithFrame: frame];
 	if (self) {
@@ -662,8 +655,8 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 
 		[self setShowsVerticalScrollIndicator: NO];
 		[self setShowsHorizontalScrollIndicator: NO];
-		self.decelerationRate = UIScrollViewDecelerationRateFast;
-		self.delegate = self;
+		[self setDecelerationRate: UIScrollViewDecelerationRateFast];
+		[self setDelegate: self];
 
 		// zoomDidFinish/Begin events fire before bounce animation completes,
 		// making a mess when we rearrange views during the animation.
@@ -738,7 +731,7 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 					fz_drop_link(ctx, links);
 				});
 				if (imageView) {
-					linkView.frame = imageView.frame;
+					[linkView setFrame: [imageView frame]];
 					[linkView setPageSize: pageSize];
 				}
 				[self addSubview: linkView];
@@ -763,7 +756,7 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 	}
 	hitView = [[MuHitView alloc] initWithSearchResults: count forDocument: doc];
 	if (imageView) {
-		hitView.frame = imageView.frame;
+		[hitView setFrame: [imageView frame]];
 		[hitView setPageSize: pageSize];
 	}
 	[self addSubview: hitView];
@@ -787,7 +780,7 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 			textSelectView = [[MuTextSelectView alloc] initWithWords:words pageSize:pageSize];
 			[words release];
 			if (imageView)
-				textSelectView.frame = imageView.frame;
+				[textSelectView setFrame:[imageView frame]];
 			[self addSubview:textSelectView];
 		});
 	});
@@ -797,7 +790,7 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 {
 	inkView = [[MuInkView alloc] initWithPageSize:pageSize];
 	if (imageView)
-		inkView.frame = imageView.frame;
+		[inkView setFrame:[imageView frame]];
 	[self addSubview:inkView];
 }
 
@@ -817,7 +810,7 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 
 -(void) saveSelectionAsMarkup:(int)type
 {
-	NSArray *rects = textSelectView.selectionRects;
+	NSArray *rects = [textSelectView selectionRects];
 	if (rects.count == 0)
 		return;
 
@@ -858,7 +851,7 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 	selectedAnnotationIndex = i;
 	[annotSelectView removeFromSuperview];
 	[annotSelectView release];
-	annotSelectView = [[MuAnnotSelectView alloc] initWithAnnot:annotations[i] pageSize:pageSize];
+	annotSelectView = [[MuAnnotSelectView alloc] initWithAnnot:[annotations objectAtIndex:i] pageSize:pageSize];
 	[self addSubview:annotSelectView];
 }
 
@@ -897,8 +890,8 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 		tileView = nil;
 	}
 
-	self.minimumZoomScale = 1;
-	self.maximumZoomScale = 5;
+	[self setMinimumZoomScale: 1];
+	[self setMaximumZoomScale: 5];
 	[self setZoomScale: 1 animated: animated];
 }
 
@@ -970,7 +963,7 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 		if (annotSelectView)
 			[self bringSubviewToFront:annotSelectView];
 	} else {
-		imageView.image = image;
+		[imageView setImage: image];
 	}
 
 	[self resizeImage];
@@ -982,10 +975,10 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 		CGSize imageSize = imageView.image.size;
 		CGSize scale = fitPageToScreen(imageSize, self.bounds.size);
 		if (fabs(scale.width - 1) > 0.1) {
-			CGRect frame = imageView.frame;
+			CGRect frame = [imageView frame];
 			frame.size.width = imageSize.width * scale.width;
 			frame.size.height = imageSize.height * scale.height;
-			imageView.frame = frame;
+			[imageView setFrame: frame];
 
 			printf("resized view; queuing up a reload (%d)\n", number);
 			dispatch_async(queue, ^{
@@ -999,7 +992,7 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 			[imageView sizeToFit];
 		}
 
-		self.contentSize = imageView.frame.size;
+		[self setContentSize: imageView.frame.size];
 
 		[self layoutIfNeeded];
 	}
@@ -1042,22 +1035,22 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 
 	if (imageView)
 	{
-		CGRect frm = imageView.frame;
+		CGRect frm = [imageView frame];
 
 		if (hitView)
-			hitView.frame = frm;
+			[hitView setFrame: frm];
 
 		if (linkView)
-			linkView.frame = frm;
+			[linkView setFrame:frm];
 
 		if (textSelectView)
-			textSelectView.frame = frm;
+			[textSelectView setFrame:frm];
 
 		if (inkView)
-			inkView.frame = frm;
+			[inkView setFrame:frm];
 
 		if (annotSelectView)
-			annotSelectView.frame = frm;
+			[annotSelectView setFrame:frm];
 	}
 }
 
@@ -1114,7 +1107,7 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 				}
 
 				tileView = [[UIImageView alloc] initWithFrame: frame];
-				tileView.image = image;
+				[tileView setImage: image];
 				[self addSubview: tileView];
 				if (hitView)
 					[self bringSubviewToFront: hitView];
@@ -1164,19 +1157,19 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 {
 	if (imageView)
 	{
-		CGRect frm = imageView.frame;
+		CGRect frm = [imageView frame];
 
 		if (hitView)
-			hitView.frame = frm;
+			[hitView setFrame: frm];
 
 		if (textSelectView)
-			textSelectView.frame = frm;
+			[textSelectView setFrame:frm];
 
 		if (inkView)
-			inkView.frame = frm;
+			[inkView setFrame:frm];
 
 		if (annotSelectView)
-			annotSelectView.frame = frm;
+			[annotSelectView setFrame:frm];
 	}
 }
 
@@ -1194,7 +1187,7 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 		dispatch_async(dispatch_get_main_queue(), ^{
 			BOOL isValid = CGRectEqualToRect(tframe, tileFrame) && tscale == tileScale;
 			if (isValid)
-				tileView.image = timage;
+				[tileView setImage:timage];
 			[timage release];
 		});
 	}
@@ -1204,7 +1197,7 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 	drop_list(rlist);
 	UIImage *image = newImageWithPixmap(image_pix, imageData);
 	dispatch_async(dispatch_get_main_queue(), ^{
-		imageView.image = image;
+		[imageView setImage:image];
 		[image release];
 	});
 }
@@ -1226,7 +1219,7 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 {
 	[dialogCreator invokeTextDialog:text okayAction:^(NSString *newText) {
 		dispatch_async(queue, ^{
-			BOOL accepted = setFocussedWidgetText(doc, page, newText.UTF8String);
+			BOOL accepted = setFocussedWidgetText(doc, page, [newText UTF8String]);
 			if (accepted)
 			{
 				dispatch_async(dispatch_get_main_queue(), ^{
@@ -1247,7 +1240,7 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 {
 	[dialogCreator invokeChoiceDialog:choices okayAction:^(NSArray *selection) {
 		dispatch_async(queue, ^{
-			BOOL accepted = setFocussedWidgetChoice(doc, page, [selection[0] UTF8String]);
+			BOOL accepted = setFocussedWidgetChoice(doc, page, [[selection objectAtIndex:0] UTF8String]);
 			if (accepted)
 			{
 				dispatch_async(dispatch_get_main_queue(), ^{
@@ -1292,12 +1285,12 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 		focus = pdf_focused_widget(ctx, idoc);
 		if (focus)
 		{
-			switch (pdf_widget_type(ctx, focus))
+			switch (pdf_widget_get_type(ctx, focus))
 			{
 				case PDF_WIDGET_TYPE_TEXT:
 				{
 					text = pdf_text_widget_text(ctx, idoc, focus);
-					NSString *stext = [@(text?text:"") retain];
+					NSString *stext = [[NSString stringWithUTF8String:text?text:""] retain];
 					dispatch_async(dispatch_get_main_queue(), ^{
 						[self invokeTextDialog:stext];
 						[stext release];
@@ -1314,10 +1307,10 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 					NSMutableArray *arr = [[NSMutableArray arrayWithCapacity:nopts] retain];
 					for (int i = 0; i < nopts; i++)
 					{
-						NSString *utf8 = @(opts[i]);
+						NSString *utf8 = [NSString stringWithUTF8String:opts[i]];
 						// FIXME: temporary patch to handle the library not converting to utf8
 						if (utf8 == nil)
-							utf8 = @(opts[i]);
+							utf8 = [NSString stringWithCString:opts[i] encoding:NSASCIIStringEncoding];
 						if (utf8 != nil)
 							[arr addObject:utf8];
 					}
@@ -1359,7 +1352,7 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 
 	for (i = 0; i < annotations.count; i++)
 	{
-		MuAnnotation *annot = annotations[i];
+		MuAnnotation *annot = [annotations objectAtIndex:i];
 		if (annot.type != FZ_ANNOT_WIDGET && CGRectContainsPoint(annot.rect, ipt))
 		{
 			[self selectAnnotation:i];
@@ -1371,7 +1364,7 @@ static void updatePixmap(fz_document *doc, fz_display_list *page_list, fz_displa
 
 	for (i = 0; i < widgetRects.count; i++)
 	{
-		CGRect r = [widgetRects[i] CGRectValue];
+		CGRect r = [[widgetRects objectAtIndex:i] CGRectValue];
 		if (CGRectContainsPoint(r, ipt))
 		{
 			dispatch_async(queue, ^{

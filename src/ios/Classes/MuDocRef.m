@@ -4,7 +4,7 @@
 
 @implementation MuDocRef
 
--(instancetype) initWithFilename:(NSString *)aFilename;
+-(id) initWithFilename:(NSString *)aFilename;
 {
 	self = [super init];
 	if (self)
@@ -15,7 +15,7 @@
 
 		fz_try(ctx)
 		{
-			doc = fz_open_document(ctx, aFilename.UTF8String);
+			doc = fz_open_document(ctx, aFilename);
 			if (!doc)
 			{
 				[self release];

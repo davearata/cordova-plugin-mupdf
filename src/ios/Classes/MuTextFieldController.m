@@ -14,7 +14,7 @@
 	NSString *initialText;
 }
 
--(instancetype)initWithText:(NSString *)text okayAction:(void (^)(NSString *))block
+-(id)initWithText:(NSString *)text okayAction:(void (^)(NSString *))block
 {
 	self = [super initWithNibName:@"MuTextFieldController" bundle:nil];
 	if (self)
