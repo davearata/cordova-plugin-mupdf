@@ -558,7 +558,7 @@ static NSDictionary* saveDoc(char *current_path, fz_document *doc, BOOL isAnnota
 
 - (void) showMoreMenu
 {
-	NSMutableArray *rightbuttons = [NSMutableArray arrayWithObjects:printButton, shareButton, nil];
+	NSMutableArray *rightbuttons = [NSMutableArray arrayWithObjects:printButton, /* shareButton, */ nil];
 	if (docRef->interactive)
 		[rightbuttons insertObject:annotButton atIndex:0];
 	[[self navigationItem] setRightBarButtonItems:rightbuttons];
